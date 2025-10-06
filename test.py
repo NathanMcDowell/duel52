@@ -20,7 +20,7 @@ import math
 pygame.init()  # Start all Pygame modules we plan to use (display, font, etc.)
 
 # Window size constants (all caps => 'constant by convention')
-SCREEN_WIDTH, SCREEN_HEIGHT = 800, 600
+SCREEN_WIDTH, SCREEN_HEIGHT = 1200, 850
 screen = pygame.display.set_mode((SCREEN_WIDTH, SCREEN_HEIGHT))
 pygame.display.set_caption("Menu Tutorial - Learn by Reading the Comments")
 
@@ -179,9 +179,15 @@ def draw_options(surface, mouse_pos):
 
 def draw_lines(surface):
     # lines that divide the screen into sixths
-    vertical_start_pos = SCREEN_WIDTH // 3, 0
-    vertical_end_pos = SCREEN_WIDTH // 3, SCREEN_HEIGHT
-    pygame.draw.line(surface, WHITE, vertical_start_pos, vertical_end_pos, 5)
+    v_line1_start_pos = SCREEN_WIDTH // 3, 0
+    v_line1_end_pos = SCREEN_WIDTH // 3, SCREEN_HEIGHT
+    pygame.draw.line(surface, WHITE, v_line1_start_pos, v_line1_end_pos, 5)
+    v_line2_start_pos = (SCREEN_WIDTH // 3) * 2, 0
+    v_line2_end_pos = (SCREEN_WIDTH // 3) * 2, SCREEN_HEIGHT
+    pygame.draw.line(surface, WHITE, v_line2_start_pos, v_line2_end_pos, 5)
+    h_line1_start_pos = 0, SCREEN_HEIGHT // 2
+    h_line1_end_pos = SCREEN_WIDTH, SCREEN_HEIGHT // 2
+    pygame.draw.line(surface, WHITE, h_line1_start_pos, h_line1_end_pos, 5)
 
 def draw_game(surface):
     """
@@ -192,7 +198,7 @@ def draw_game(surface):
     draw_text("Game Running - Press ESC to return to Menu", GAME_FONT, LIGHTGRAY, surface, SCREEN_WIDTH // 2, 30)
     
     draw_lines(surface)
-    
+
     # Simple demo: a rectangle that moves back and forth based on time
     t = pygame.time.get_ticks() / 1000.0  # time in seconds since Pygame started
     x = SCREEN_WIDTH // 2 + int(200 * math.sin(t * 2.0))
