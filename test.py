@@ -12,6 +12,7 @@ If you're following along: read comments, run the file, and tinker with values.
 
 import pygame
 import sys
+import math
 
 # ----------------------------
 # Basic initialization
@@ -126,7 +127,7 @@ options_button_rect = pygame.Rect(
 quit_button_rect = pygame.Rect(
     (SCREEN_WIDTH // 2) - (button_width // 2), 410, button_width, button_height
 )
-
+close_rect = pygame.Rect(10, 10, 50, 50)
 # Options screen state (example)
 options_back_rect = pygame.Rect(20, SCREEN_HEIGHT - 80, 140, 50)  # back button in options
 enable_sound = True  # example toggle that might be changed in options
@@ -176,6 +177,11 @@ def draw_options(surface, mouse_pos):
     back_hover = draw_button(surface, options_back_rect, "Back", BUTTON_FONT, BLUE, LIGHTGRAY, mouse_pos)
     return toggle_hover, back_hover
 
+def draw_lines(surface):
+    # lines that divide the screen into sixths
+    vertical_start_pos = SCREEN_WIDTH // 3, 0
+    vertical_end_pos = SCREEN_WIDTH // 3, SCREEN_HEIGHT
+    pygame.draw.line(surface, WHITE, vertical_start_pos, vertical_end_pos, 5)
 
 def draw_game(surface):
     """
@@ -184,12 +190,19 @@ def draw_game(surface):
     """
     surface.fill((18, 24, 40))  # a different background so you know you're in the game
     draw_text("Game Running - Press ESC to return to Menu", GAME_FONT, LIGHTGRAY, surface, SCREEN_WIDTH // 2, 30)
-
+    
+    draw_lines(surface)
+    
     # Simple demo: a rectangle that moves back and forth based on time
     t = pygame.time.get_ticks() / 1000.0  # time in seconds since Pygame started
-    x = SCREEN_WIDTH // 2 + int(200 * pygame.math.sin(t * 2.0))
+    x = SCREEN_WIDTH // 2 + int(200 * math.sin(t * 2.0))
     demo_rect = pygame.Rect(x - 25, SCREEN_HEIGHT // 2 - 25, 50, 50)
     pygame.draw.rect(surface, BLUE, demo_rect)
+    # My attempt at creating a button
+    # draw_button(surface, rect, text, font, base_color, hover_color, mouse_pos, border_color=WHITE)
+    
+    draw_button(surface, close_rect, "X", BUTTON_FONT, RED, WHITE, mouse_pos)
+    
 
 
 # ----------------------------
@@ -235,6 +248,8 @@ while running:
                     current_state = MENU
             elif current_state == GAME:
                 # Example: clicking in game could do something; for now do nothing special
+                if close_rect.collidepoint(mouse_pos):
+                    current_state = MENU
                 pass
 
     # Drawing happens after input handling. This keeps input & drawing in sync.

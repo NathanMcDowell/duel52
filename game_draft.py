@@ -42,8 +42,11 @@ def draw_button(surface, rect, text, font, base_color, hover_color, mouse_pos, b
     -rect is the predefined details for the button's shape and size.
     -text is the text on the button, which will be put into a draw text function within this one.
     -font is the font of above text, as determined by the above written font variables.
-    -base_color"""
-
+    -base_color is the color that the rectangle will be unless it is hovered over. Use constant colors.
+    -hover_color is the color that the rectangle will be when hovered over. Use constant colors.
+    -mouse_pos in this case is used to determine if the mouse is over the button. It will take from a function that determines mouse position.
+    -border_color is the color of the border that the button has. It will be white unless otherwise specified."""
+    
 def draw_menu():
     ""
 
