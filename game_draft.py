@@ -42,6 +42,10 @@ quit_rect = pygame.Rect(centered_width, 400, button_width, button_height)
 back_rect = pygame.Rect(40, 500, button_width + 60, button_height)
 begin_rect = pygame.Rect(500, 500, button_width, button_height)
 
+# Game Rectangles
+x = RED
+test_card_rect = pygame.Rect(centered_width, 200, 100, 200)
+
 def draw_text(text, font, color, surface, x, y, center = True):
     """When I need to draw text, this is the function that I will use to do so.
     -Text is what will be written.
@@ -114,20 +118,24 @@ def draw_options(surface, mouse_pos):
 
 def draw_game(surface, mouse_pos):
     '''The game'''
+    surface.fill(DARKGRAY)
+    draw_button(screen, test_card_rect, "A", BUTTON_FONT, RED, x, mouse_pos)
 
 def main():
     """The main game loop."""
     print("Hello 1")
     global current_state
+    global x
     running = True
     while running == True:
-        mouse_pos = mouse_pos = pygame.mouse.get_pos()
+        mouse_pos = pygame.mouse.get_pos()
         if current_state == MENU:
             draw_menu(screen, mouse_pos)
         if current_state == GAME_START:
             ''''''
             draw_game_startup(screen, mouse_pos)
-
+        if current_state == GAME:
+            draw_game(screen, mouse_pos)
         for event in pygame.event.get():
             if event.type == pygame.QUIT:
                 running = False
@@ -140,7 +148,14 @@ def main():
                     if current_state == GAME_START:
                         if back_rect.collidepoint(mouse_pos):
                             current_state = MENU
-        
+                        if begin_rect.collidepoint(mouse_pos):
+                            current_state = GAME
+                    if current_state == GAME:
+                        if back_rect.collidepoint(mouse_pos):
+                            x = GREEN
+
+
+
         pygame.display.flip()
 
         clock.tick(60)
