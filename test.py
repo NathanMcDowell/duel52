@@ -104,7 +104,7 @@ def draw_button(surface, rect, text, font, base_color, hover_color, mouse_pos, b
     pygame.draw.rect(surface, color, rect)
 
     # Draw a border to make it look like a button
-    pygame.draw.rect(surface, border_color, rect, 2)  # '2' is the border thickness
+    pygame.draw.rect(surface, border_color, rect, 5)  # '2' is the border thickness
 
     # Draw centered text on top of the rectangle
     draw_text(text, font, WHITE, surface, rect.centerx, rect.centery)
@@ -128,6 +128,7 @@ quit_button_rect = pygame.Rect(
     (SCREEN_WIDTH // 2) - (button_width // 2), 410, button_width, button_height
 )
 close_rect = pygame.Rect(10, 10, 50, 50)
+
 # Options screen state (example)
 options_back_rect = pygame.Rect(20, SCREEN_HEIGHT - 80, 140, 50)  # back button in options
 enable_sound = True  # example toggle that might be changed in options

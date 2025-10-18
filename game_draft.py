@@ -3,8 +3,8 @@ import sys
 
 pygame.init()
 
-WIDTH, HEIGHT = 800, 600
-screen = pygame.display.set_mode(WIDTH, HEIGHT)
+SCREEN_WIDTH, SCREEN_HEIGHT = 800, 600
+screen = pygame.display.set_mode((SCREEN_WIDTH, SCREEN_HEIGHT))
 pygame.display.set_caption("Game Draft")
 
 clock = pygame.time.Clock()
@@ -20,12 +20,27 @@ RED = (200, 30, 30)
 
 TITLE_FONT = pygame.font.SysFont("Arial", 70)
 BUTTON_FONT = pygame.font.SysFont("Arial", 50)
-# GAME_FONT = pygame.font.SysFont("Arial", 70)
+GAME_FONT = pygame.font.SysFont("Arial", 70)
 
 MENU = "menu"
+GAME_START = "game_start"
 GAME = "game"
 OPTIONS = "options"
+CONTROLS = "controls"
 current_state = MENU
+
+# Rectangles
+# (x coordinate, y coordinate, width, height)
+button_width, button_height = 260, 64
+centered_width = (SCREEN_WIDTH // 2) - (button_width // 2)
+# Menu Rectangles
+start_rect = pygame.Rect(centered_width, 100, button_width, button_height)
+controls_rect = pygame.Rect(centered_width, 200, button_width, button_height)
+options_rect = pygame.Rect(centered_width, 300, button_width, button_height)
+quit_rect = pygame.Rect(centered_width, 400, button_width, button_height)
+# Start Up Rectangles
+back_rect = pygame.Rect(40, 500, button_width + 60, button_height)
+begin_rect = pygame.Rect(500, 500, button_width, button_height)
 
 def draw_text(text, font, color, surface, x, y, center = True):
     """When I need to draw text, this is the function that I will use to do so.
@@ -35,6 +50,13 @@ def draw_text(text, font, color, surface, x, y, center = True):
     -Surface is the surface on which the text will be placed, which is the screen constant.
     -x and y are the coordinates for the text.
     -center = True means that the text will be centered on the x and y instead of that being the upper-left coordinate."""
+    text_surf = font.render(text, True, color)
+    if center:
+        text_rect = text_surf.get_rect(center=(x, y))
+    else:
+        text_rect = text_surf.get_rect(topleft=(x, y))
+    surface.blit(text_surf, text_rect)
+    return text_rect
 
 def draw_button(surface, rect, text, font, base_color, hover_color, mouse_pos, border_color = WHITE):
     """This makes buttons where I need them.
@@ -47,8 +69,83 @@ def draw_button(surface, rect, text, font, base_color, hover_color, mouse_pos, b
     -mouse_pos in this case is used to determine if the mouse is over the button. It will take from a function that determines mouse position.
     -border_color is the color of the border that the button has. It will be white unless otherwise specified."""
     
-def draw_menu():
-    ""
+    hovered = rect.collidepoint(mouse_pos)  
+    color = hover_color if hovered else base_color
+    
+    pygame.draw.rect(surface, color, rect) 
+    pygame.draw.rect(surface, border_color, rect, 2)  # Determines border thickness
+    
+    draw_text(text, font, BLACK, surface, rect.centerx, rect.centery) # Adds text to the function
 
-def draw_options():
-    ""
+    return hovered
+
+def draw_menu(surface, mouse_pos):
+    """Makes the menu title screen.
+    -TO DO-
+    - Set the background
+    - Print the header text 'DUEL 52' 
+    - Make the buttons"""
+    surface.fill(DARKGRAY)
+
+    draw_text("DUEL 52", TITLE_FONT, WHITE, screen, SCREEN_WIDTH // 2, 40)
+
+    draw_button(screen, start_rect, "Start", BUTTON_FONT, RED, GREEN, mouse_pos)
+    draw_button(screen, controls_rect, "Controls", BUTTON_FONT, RED, GREEN, mouse_pos)
+    draw_button(screen, options_rect, "Options", BUTTON_FONT, RED, GREEN, mouse_pos)
+    draw_button(screen, quit_rect, "Quit", BUTTON_FONT, RED, GREEN, mouse_pos)
+
+def draw_game_startup(surface, mouse_pos):
+    """Makes the start up screen before the game begins.
+    This screen will have a couple of options for beginning the game.
+    - Name each player.
+    - Choose if one player will go first or if they want it randomly determined."""
+    surface.fill(DARKGRAY)
+    draw_text("Set Up", TITLE_FONT, WHITE, screen, SCREEN_WIDTH // 2, 40)
+    draw_button(screen, back_rect, "Back to Menu", BUTTON_FONT, RED, GREEN, mouse_pos)
+    draw_button(screen, begin_rect, "Begin", BUTTON_FONT, RED, GREEN, mouse_pos)
+
+def draw_controls(surface, mouse_pos):
+    """Makes the controls screen"""
+    draw_text("Controls", TITLE_FONT, WHITE, screen, SCREEN_WIDTH // 2, 40)
+
+def draw_options(surface, mouse_pos):
+    """Makes the controls screen"""
+
+
+def draw_game(surface, mouse_pos):
+    '''The game'''
+
+def main():
+    """The main game loop."""
+    print("Hello 1")
+    global current_state
+    running = True
+    while running == True:
+        mouse_pos = mouse_pos = pygame.mouse.get_pos()
+        if current_state == MENU:
+            draw_menu(screen, mouse_pos)
+        if current_state == GAME_START:
+            ''''''
+            draw_game_startup(screen, mouse_pos)
+
+        for event in pygame.event.get():
+            if event.type == pygame.QUIT:
+                running = False
+            if event.type == pygame.MOUSEBUTTONDOWN and event.button == 1: # If the left mouse button is clicked
+                    if current_state == MENU:
+                        if quit_rect.collidepoint(mouse_pos):
+                            running = False
+                        if start_rect.collidepoint(mouse_pos):
+                            current_state = GAME_START
+                    if current_state == GAME_START:
+                        if back_rect.collidepoint(mouse_pos):
+                            current_state = MENU
+        
+        pygame.display.flip()
+
+        clock.tick(60)
+
+main()
+
+pygame.quit()
+sys.exit()
