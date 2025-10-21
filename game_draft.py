@@ -43,8 +43,8 @@ back_rect = pygame.Rect(40, 500, button_width + 60, button_height)
 begin_rect = pygame.Rect(500, 500, button_width, button_height)
 
 # Game Rectangles
-x = RED
-test_card_rect = pygame.Rect(centered_width, 200, 100, 200)
+x, y = centered_width, 200
+test_card_rect = pygame.Rect(x, y, 100, 200)
 
 def draw_text(text, font, color, surface, x, y, center = True):
     """When I need to draw text, this is the function that I will use to do so.
@@ -119,15 +119,14 @@ def draw_options(surface, mouse_pos):
 def draw_game(surface, mouse_pos):
     '''The game'''
     surface.fill(DARKGRAY)
-    draw_button(screen, test_card_rect, "A", BUTTON_FONT, RED, x, mouse_pos)
+    draw_button(screen, test_card_rect, "A", BUTTON_FONT, RED, GREEN, mouse_pos)
 
 def main():
     """The main game loop."""
-    print("Hello 1")
     global current_state
-    global x
+    global x, y
     running = True
-    while running == True:
+    while running:
         mouse_pos = pygame.mouse.get_pos()
         if current_state == MENU:
             draw_menu(screen, mouse_pos)
@@ -151,8 +150,9 @@ def main():
                         if begin_rect.collidepoint(mouse_pos):
                             current_state = GAME
                     if current_state == GAME:
-                        if back_rect.collidepoint(mouse_pos):
-                            x = GREEN
+                        if test_card_rect.collidepoint(mouse_pos):
+                            x, y = mouse_pos
+                            test_card_rect.topleft = (x - 50, y - 100)
 
 
 
