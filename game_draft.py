@@ -149,10 +149,12 @@ def main():
                             current_state = MENU
                         if begin_rect.collidepoint(mouse_pos):
                             current_state = GAME
-                    if current_state == GAME:
-                        if test_card_rect.collidepoint(mouse_pos):
-                            x, y = mouse_pos
-                            test_card_rect.topleft = (x - 50, y - 100)
+        if current_state == GAME:
+            buttons = pygame.mouse.get_pressed()  # returns a tuple: (left, middle, right)
+            if buttons[0]:
+                if test_card_rect.collidepoint(mouse_pos):
+                    x, y = mouse_pos
+                    test_card_rect.topleft = (x - 50, y - 100)
 
 
 
