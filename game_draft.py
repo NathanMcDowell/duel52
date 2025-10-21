@@ -44,7 +44,9 @@ begin_rect = pygame.Rect(500, 500, button_width, button_height)
 
 # Game Rectangles
 x, y = centered_width, 200
+x2, y2 = centered_width, 100
 test_card_rect = pygame.Rect(x, y, 100, 200)
+test_card_rect2 = pygame.Rect(x2, y2, 100, 200)
 
 def draw_text(text, font, color, surface, x, y, center = True):
     """When I need to draw text, this is the function that I will use to do so.
@@ -110,16 +112,21 @@ def draw_game_startup(surface, mouse_pos):
 
 def draw_controls(surface, mouse_pos):
     """Makes the controls screen"""
+    surface.fill(DARKGRAY)
     draw_text("Controls", TITLE_FONT, WHITE, screen, SCREEN_WIDTH // 2, 40)
+    draw_button(screen, back_rect, "Back to Menu", BUTTON_FONT, RED, GREEN, mouse_pos)
 
 def draw_options(surface, mouse_pos):
     """Makes the controls screen"""
+    surface.fill(DARKGRAY)
 
+    draw_button(screen, back_rect, "Back to Menu", BUTTON_FONT, RED, GREEN, mouse_pos)
 
 def draw_game(surface, mouse_pos):
     '''The game'''
     surface.fill(DARKGRAY)
     draw_button(screen, test_card_rect, "A", BUTTON_FONT, RED, GREEN, mouse_pos)
+    draw_button(screen, test_card_rect2, "B", BUTTON_FONT, RED, GREEN, mouse_pos)
 
 def main():
     """The main game loop."""
@@ -130,11 +137,20 @@ def main():
         mouse_pos = pygame.mouse.get_pos()
         if current_state == MENU:
             draw_menu(screen, mouse_pos)
+        
         if current_state == GAME_START:
             ''''''
             draw_game_startup(screen, mouse_pos)
+
+        if current_state == OPTIONS:
+            draw_options(screen, mouse_pos)
+
+        if current_state == CONTROLS:
+            draw_controls(screen, mouse_pos)
+
         if current_state == GAME:
             draw_game(screen, mouse_pos)
+
         for event in pygame.event.get():
             if event.type == pygame.QUIT:
                 running = False
@@ -144,17 +160,37 @@ def main():
                             running = False
                         if start_rect.collidepoint(mouse_pos):
                             current_state = GAME_START
+                        if controls_rect.collidepoint(mouse_pos):
+                            current_state = CONTROLS
+                        if options_rect.collidepoint(mouse_pos):
+                            current_state = OPTIONS
+                    
+                    if current_state == OPTIONS:
+                        if back_rect.collidepoint(mouse_pos):
+                            current_state = MENU
+                    
+                    if current_state == CONTROLS:
+                        if back_rect.collidepoint(mouse_pos):
+                            current_state = MENU
+                    
                     if current_state == GAME_START:
                         if back_rect.collidepoint(mouse_pos):
                             current_state = MENU
                         if begin_rect.collidepoint(mouse_pos):
                             current_state = GAME
+                    
+                    if current_state == GAME:
+                        if back_rect.collidepoint(mouse_pos):
+                            current_state = MENU
         if current_state == GAME:
             buttons = pygame.mouse.get_pressed()  # returns a tuple: (left, middle, right)
             if buttons[0]:
                 if test_card_rect.collidepoint(mouse_pos):
                     x, y = mouse_pos
                     test_card_rect.topleft = (x - 50, y - 100)
+                if test_card_rect2.collidepoint(mouse_pos):
+                    x2, y2 = mouse_pos
+                    test_card_rect2.topleft = (x2 - 50, y2 - 100)
 
 
 
