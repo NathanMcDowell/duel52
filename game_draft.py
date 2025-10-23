@@ -48,6 +48,9 @@ x2, y2 = centered_width, 100
 test_card_rect = pygame.Rect(x, y, 100, 200)
 test_card_rect2 = pygame.Rect(x2, y2, 100, 200)
 
+rectangles = ["1", "2", "3", "4", "5"]
+new_rectangles = []
+
 def draw_text(text, font, color, surface, x, y, center = True):
     """When I need to draw text, this is the function that I will use to do so.
     -Text is what will be written.
@@ -125,9 +128,27 @@ def draw_options(surface, mouse_pos):
 def draw_game(surface, mouse_pos):
     '''The game'''
     surface.fill(DARKGRAY)
+    draw_button(screen, back_rect, "Back to Menu", BUTTON_FONT, RED, GREEN, mouse_pos)
+    
     draw_button(screen, test_card_rect, "A", BUTTON_FONT, RED, GREEN, mouse_pos)
     draw_button(screen, test_card_rect2, "B", BUTTON_FONT, RED, GREEN, mouse_pos)
+    make_cards(surface, mouse_pos)
 
+def make_cards(surface, mouse_pos):
+    
+    x, y = 50, 200
+    
+    '''I need a list that has all the rectangle variables ie. pygame.Rect(x, y, 100, 200).'''
+    for rect in rectangles:
+        name = rect
+        rect = pygame.Rect(x, y, 100, 200)
+        new_rectangles.append(rect)
+        draw_button(screen, rect, name, BUTTON_FONT, RED, BLUE, mouse_pos)
+        x += 125
+        # y += 100
+    new_rectangles.append(test_card_rect)
+    new_rectangles.append(test_card_rect2)
+    
 def main():
     """The main game loop."""
     global current_state
@@ -182,6 +203,7 @@ def main():
                     if current_state == GAME:
                         if back_rect.collidepoint(mouse_pos):
                             current_state = MENU
+        
         if current_state == GAME:
             buttons = pygame.mouse.get_pressed()  # returns a tuple: (left, middle, right)
             if buttons[0]:
@@ -191,7 +213,14 @@ def main():
                 if test_card_rect2.collidepoint(mouse_pos):
                     x2, y2 = mouse_pos
                     test_card_rect2.topleft = (x2 - 50, y2 - 100)
-
+                for rect in new_rectangles:
+                    if rect.collidepoint(mouse_pos):
+                        x, y = mouse_pos
+                        rect.topleft = (x - 50, y - 100)
+                        
+                        print(rect)
+            
+            
 
 
         pygame.display.flip()
