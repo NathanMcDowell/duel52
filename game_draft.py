@@ -51,6 +51,22 @@ test_card_rect2 = pygame.Rect(x2, y2, 100, 200)
 rectangles = ["1", "2", "3", "4", "5"]
 new_rectangles = []
 
+# Card class test
+class Card:
+    suit: str
+    rank: str
+    flipped: bool
+    health: int
+
+    def __init__(self, suit, rank):
+        self.suit = suit
+        self.rank = rank
+        self.flipped = False
+        if rank == "J":
+            self.health = 3
+        else:
+            self.health = 2
+
 def draw_text(text, font, color, surface, x, y, center = True):
     """When I need to draw text, this is the function that I will use to do so.
     -Text is what will be written.
@@ -218,7 +234,7 @@ def main():
                         x, y = mouse_pos
                         rect.topleft = (x - 50, y - 100)
                         
-                        print(rect)
+                        
             
             
 
