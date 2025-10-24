@@ -48,17 +48,16 @@ x2, y2 = centered_width, 100
 test_card_rect = pygame.Rect(x, y, 100, 200)
 test_card_rect2 = pygame.Rect(x2, y2, 100, 200)
 
-rectangles = ["1", "2", "3", "4", "5"]
-new_rectangles = []
-
 # Card class test
 class Card:
     suit: str
     rank: str
     flipped: bool
     health: int
+    x_coord: int
+    y_coord: int
 
-    def __init__(self, suit, rank):
+    def __init__(self, rank, suit, x, y):
         self.suit = suit
         self.rank = rank
         self.flipped = False
@@ -66,6 +65,21 @@ class Card:
             self.health = 3
         else:
             self.health = 2
+        self.x_coord = x
+        self.y_coord = y
+        self.rect = pygame.Rect(self.x_coord, self.y_coord, 100, 200)
+
+    def __repr__(self):
+        return f"{self.rank} of {self.suit} with {self.health} health, flipped: {self.flipped}"
+    
+
+
+deck = []
+x_co = 100
+for num in range(0,5):
+    num = Card(str(num), "S", x_co, 500)
+    x_co += 150
+    deck.append(num)
 
 def draw_text(text, font, color, surface, x, y, center = True):
     """When I need to draw text, this is the function that I will use to do so.
@@ -146,9 +160,8 @@ def draw_game(surface, mouse_pos):
     surface.fill(DARKGRAY)
     draw_button(screen, back_rect, "Back to Menu", BUTTON_FONT, RED, GREEN, mouse_pos)
     
-    draw_button(screen, test_card_rect, "A", BUTTON_FONT, RED, GREEN, mouse_pos)
-    draw_button(screen, test_card_rect2, "B", BUTTON_FONT, RED, GREEN, mouse_pos)
-    make_cards(surface, mouse_pos)
+    for card in deck:
+        draw_button(screen, card.rect, card.rank, BUTTON_FONT, RED, GREEN, mouse_pos)
 
 def make_cards(surface, mouse_pos):
     
@@ -229,11 +242,10 @@ def main():
                 if test_card_rect2.collidepoint(mouse_pos):
                     x2, y2 = mouse_pos
                     test_card_rect2.topleft = (x2 - 50, y2 - 100)
-                for rect in new_rectangles:
-                    if rect.collidepoint(mouse_pos):
+                for card in deck:
+                    if card.rect.collidepoint(mouse_pos):
                         x, y = mouse_pos
-                        rect.topleft = (x - 50, y - 100)
-                        
+                        card.rect.topleft = (x - 50, y - 100)
                         
             
             
