@@ -1,5 +1,6 @@
 import pygame
 import sys
+import random
 
 pygame.init()
 
@@ -30,7 +31,7 @@ CONTROLS = "controls"
 current_state = MENU
 
 # Lines
-vert_line_1, vert_line_2, vert_line_3 = (SCREEN_WIDTH - 200) // 3, 2 * (SCREEN_WIDTH - 200) // 3, SCREEN_WIDTH - 200
+vert_line_1, vert_line_2, vert_line_3 = (SCREEN_WIDTH - 150) // 3, 2 * (SCREEN_WIDTH - 150) // 3, SCREEN_WIDTH - 150
 
 # Rectangles
 # (x coordinate, y coordinate, width, height)
@@ -95,6 +96,10 @@ class Card:
             self.rect.x = mouse_pos[0] - self.offset_x
             self.rect.y = mouse_pos[1] - self.offset_y
 
+    def put_in_discard(self):
+        self.rect.x = 1275
+        self.rect.y = 625
+
 deck = []
 RANK_LIST = ['2', '3', '4', '5', '6', '7', '8', '9', 'J', 'Q', 'K', 'A']
             # Spades, Diamonds, Clubs, Hearts
@@ -103,6 +108,7 @@ for suit in SUIT_LIST:
     for rank in RANK_LIST:
         card = Card(rank, suit, (SCREEN_WIDTH - (card_width + 25)), card_centered_height)
         deck.append(card)
+random.shuffle(deck)
 reversed_deck = list(reversed(deck))
 
 
@@ -124,6 +130,27 @@ def draw_text(text, font, color, surface, x, y, center = True):
     return text_rect
 
 def draw_button(surface, rect, text, font, base_color, hover_color, mouse_pos, border_color = WHITE):
+    """This makes buttons where I need them.
+    -surface is the surface on which everything is placed, the screen.
+    -rect is the predefined details for the button's shape and size.
+    -text is the text on the button, which will be put into a draw text function within this one.
+    -font is the font of above text, as determined by the above written font variables.
+    -base_color is the color that the rectangle will be unless it is hovered over. Use constant colors.
+    -hover_color is the color that the rectangle will be when hovered over. Use constant colors.
+    -mouse_pos in this case is used to determine if the mouse is over the button. It will take from a function that determines mouse position.
+    -border_color is the color of the border that the button has. It will be white unless otherwise specified."""
+    
+    hovered = rect.collidepoint(mouse_pos)  
+    color = hover_color if hovered else base_color
+    
+    pygame.draw.rect(surface, color, rect) 
+    pygame.draw.rect(surface, border_color, rect, 2)  # Determines border thickness
+    
+    draw_text(text, font, BLACK, surface, rect.centerx, rect.centery) # Adds text to the function
+
+    return hovered
+
+def draw_card(surface, rect, text, font, base_color, hover_color, mouse_pos, border_color = RED):
     """This makes buttons where I need them.
     -surface is the surface on which everything is placed, the screen.
     -rect is the predefined details for the button's shape and size.
@@ -187,12 +214,20 @@ def draw_options(surface, mouse_pos):
 def draw_game(surface, mouse_pos):
     '''The game'''
     surface.fill(DARKGRAY)
+    
+    # Menu button
     draw_button(screen, back_rect, "Back to Menu", BUTTON_FONT, RED, GREEN, mouse_pos)
+    
+    # Lane divisions
     draw_line(surface, WHITE, (vert_line_1, 0), (vert_line_1, SCREEN_HEIGHT))
     draw_line(surface, WHITE, (vert_line_2, 0), (vert_line_2, SCREEN_HEIGHT))
     draw_line(surface, WHITE, (vert_line_3, 0), (vert_line_3, SCREEN_HEIGHT))
+    # Discard pile division
+    draw_line(surface, WHITE, (vert_line_3 , SCREEN_HEIGHT - 200), (SCREEN_WIDTH, SCREEN_HEIGHT - 200))
+
+    # Draw Pile
     for card in deck:
-        draw_button(screen, card.rect, card.rank, BUTTON_FONT, RED, GREEN, mouse_pos)
+        draw_card(screen, card.rect, card.rank, BUTTON_FONT, WHITE, WHITE, mouse_pos)
     
 def main():
     """The main game loop."""
@@ -257,6 +292,9 @@ def main():
                 if current_state == GAME:
                     for card in deck:
                         card.stop_drag()
+                        if card.rect.x > SCREEN_WIDTH - 175 and card.rect.y > SCREEN_HEIGHT - 225:
+                            card.put_in_discard()
+
         
         if current_state == GAME:
             for card in deck:
