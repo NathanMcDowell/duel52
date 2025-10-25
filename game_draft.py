@@ -3,7 +3,7 @@ import sys
 
 pygame.init()
 
-SCREEN_WIDTH, SCREEN_HEIGHT = 800, 600
+SCREEN_WIDTH, SCREEN_HEIGHT = 1400, 800
 screen = pygame.display.set_mode((SCREEN_WIDTH, SCREEN_HEIGHT))
 pygame.display.set_caption("Game Draft")
 
@@ -29,24 +29,26 @@ OPTIONS = "options"
 CONTROLS = "controls"
 current_state = MENU
 
+# Lines
+vert_line_1, vert_line_2, vert_line_3 = (SCREEN_WIDTH - 200) // 3, 2 * (SCREEN_WIDTH - 200) // 3, SCREEN_WIDTH - 200
+
 # Rectangles
 # (x coordinate, y coordinate, width, height)
 button_width, button_height = 260, 64
+card_width, card_height = 100, 150
 centered_width = (SCREEN_WIDTH // 2) - (button_width // 2)
+card_centered_height = (SCREEN_HEIGHT // 2) - (card_height // 2)
+card_one_third_height = (SCREEN_HEIGHT // 3) - (card_height // 2)
+card_two_thirds_height = (2 * SCREEN_HEIGHT // 3) - (card_height // 2)
+
 # Menu Rectangles
 start_rect = pygame.Rect(centered_width, 100, button_width, button_height)
 controls_rect = pygame.Rect(centered_width, 200, button_width, button_height)
 options_rect = pygame.Rect(centered_width, 300, button_width, button_height)
 quit_rect = pygame.Rect(centered_width, 400, button_width, button_height)
 # Start Up Rectangles
-back_rect = pygame.Rect(40, 500, button_width + 60, button_height)
-begin_rect = pygame.Rect(500, 500, button_width, button_height)
-
-# Game Rectangles
-x, y = centered_width, 200
-x2, y2 = centered_width, 100
-test_card_rect = pygame.Rect(x, y, 100, 200)
-test_card_rect2 = pygame.Rect(x2, y2, 100, 200)
+back_rect = pygame.Rect(40, SCREEN_HEIGHT - 100, button_width + 60, button_height)
+begin_rect = pygame.Rect(500, SCREEN_HEIGHT - 100, button_width, button_height)
 
 # Card class test
 class Card:
@@ -56,6 +58,7 @@ class Card:
     health: int
     x_coord: int
     y_coord: int
+    
 
     def __init__(self, rank, suit, x, y):
         self.suit = suit
@@ -67,19 +70,42 @@ class Card:
             self.health = 2
         self.x_coord = x
         self.y_coord = y
-        self.rect = pygame.Rect(self.x_coord, self.y_coord, 100, 200)
+        self.rect = pygame.Rect(self.x_coord, self.y_coord, card_width, card_height)
+
+        self.dragging = False
+        self.offset_x = 0
+        self.offset_y = 0
 
     def __repr__(self):
         return f"{self.rank} of {self.suit} with {self.health} health, flipped: {self.flipped}"
     
+    def start_drag(self, mouse_pos):
+        """Call this when mouse clicks the card"""
+        self.dragging = True
+        self.offset_x = mouse_pos[0] - self.rect.x
+        self.offset_y = mouse_pos[1] - self.rect.y
+    
+    def stop_drag(self):
+        """Call this when mouse button is released"""
+        self.dragging = False
 
+    def update_drag(self, mouse_pos):
+        """Call this every frame while dragging"""
+        if self.dragging:
+            self.rect.x = mouse_pos[0] - self.offset_x
+            self.rect.y = mouse_pos[1] - self.offset_y
 
 deck = []
-x_co = 100
-for num in range(0,5):
-    num = Card(str(num), "S", x_co, 500)
-    x_co += 150
-    deck.append(num)
+RANK_LIST = ['2', '3', '4', '5', '6', '7', '8', '9', 'J', 'Q', 'K', 'A']
+            # Spades, Diamonds, Clubs, Hearts
+SUIT_LIST = ['S', 'D', 'C', 'H']
+for suit in SUIT_LIST:
+    for rank in RANK_LIST:
+        card = Card(rank, suit, (SCREEN_WIDTH - (card_width + 25)), card_centered_height)
+        deck.append(card)
+reversed_deck = list(reversed(deck))
+
+
 
 def draw_text(text, font, color, surface, x, y, center = True):
     """When I need to draw text, this is the function that I will use to do so.
@@ -117,6 +143,9 @@ def draw_button(surface, rect, text, font, base_color, hover_color, mouse_pos, b
     draw_text(text, font, BLACK, surface, rect.centerx, rect.centery) # Adds text to the function
 
     return hovered
+
+def draw_line(surface, color, start_pos, end_pos, width=5):
+    pygame.draw.line(surface, color, start_pos, end_pos, width)
 
 def draw_menu(surface, mouse_pos):
     """Makes the menu title screen.
@@ -159,24 +188,11 @@ def draw_game(surface, mouse_pos):
     '''The game'''
     surface.fill(DARKGRAY)
     draw_button(screen, back_rect, "Back to Menu", BUTTON_FONT, RED, GREEN, mouse_pos)
-    
+    draw_line(surface, WHITE, (vert_line_1, 0), (vert_line_1, SCREEN_HEIGHT))
+    draw_line(surface, WHITE, (vert_line_2, 0), (vert_line_2, SCREEN_HEIGHT))
+    draw_line(surface, WHITE, (vert_line_3, 0), (vert_line_3, SCREEN_HEIGHT))
     for card in deck:
         draw_button(screen, card.rect, card.rank, BUTTON_FONT, RED, GREEN, mouse_pos)
-
-def make_cards(surface, mouse_pos):
-    
-    x, y = 50, 200
-    
-    '''I need a list that has all the rectangle variables ie. pygame.Rect(x, y, 100, 200).'''
-    for rect in rectangles:
-        name = rect
-        rect = pygame.Rect(x, y, 100, 200)
-        new_rectangles.append(rect)
-        draw_button(screen, rect, name, BUTTON_FONT, RED, BLUE, mouse_pos)
-        x += 125
-        # y += 100
-    new_rectangles.append(test_card_rect)
-    new_rectangles.append(test_card_rect2)
     
 def main():
     """The main game loop."""
@@ -232,20 +248,19 @@ def main():
                     if current_state == GAME:
                         if back_rect.collidepoint(mouse_pos):
                             current_state = MENU
+                        for card in reversed_deck:
+                            if card.rect.collidepoint(mouse_pos):
+                                card.start_drag(mouse_pos)
+                                break
+
+            if event.type == pygame.MOUSEBUTTONUP and event.button == 1: # If the left mouse button is lifted
+                if current_state == GAME:
+                    for card in deck:
+                        card.stop_drag()
         
         if current_state == GAME:
-            buttons = pygame.mouse.get_pressed()  # returns a tuple: (left, middle, right)
-            if buttons[0]:
-                if test_card_rect.collidepoint(mouse_pos):
-                    x, y = mouse_pos
-                    test_card_rect.topleft = (x - 50, y - 100)
-                if test_card_rect2.collidepoint(mouse_pos):
-                    x2, y2 = mouse_pos
-                    test_card_rect2.topleft = (x2 - 50, y2 - 100)
-                for card in deck:
-                    if card.rect.collidepoint(mouse_pos):
-                        x, y = mouse_pos
-                        card.rect.topleft = (x - 50, y - 100)
+            for card in deck:
+                card.update_drag(mouse_pos)
                         
             
             
