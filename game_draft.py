@@ -57,9 +57,9 @@ class Card:
     rank: str
     flipped: bool
     health: int
+    player: int
     x_coord: int
     y_coord: int
-    
 
     def __init__(self, rank, suit, x, y):
         self.suit = suit
@@ -69,13 +69,18 @@ class Card:
             self.health = 3
         else:
             self.health = 2
+        player = 0
         self.x_coord = x
         self.y_coord = y
+        
         self.rect = pygame.Rect(self.x_coord, self.y_coord, card_width, card_height)
 
         self.dragging = False
         self.offset_x = 0
         self.offset_y = 0
+
+        self.color = RED
+        self.border_color = BLACK
 
     def __repr__(self):
         return f"{self.rank} of {self.suit} with {self.health} health, flipped: {self.flipped}"
@@ -99,6 +104,33 @@ class Card:
     def put_in_discard(self):
         self.rect.x = 1275
         self.rect.y = 625
+    
+    def flip(self):
+        if self.flipped == False:
+            self.flipped = True
+            self.color = WHITE
+            self.border_color = RED
+        elif self.flipped == True:
+            self.flipped = False
+            self.color = RED
+            self.border_color = BLACK
+    def damage(self):
+        if self.health == 2:
+            self.health = 1
+            self.rect.width = card_height
+            self.rect.height = card_width
+        elif self.health == 1:
+            self.health = 0
+            self.rect.width = card_width
+            self.rect.height = card_height
+            if self.rank == "3" and self.flipped == False:
+                self.health = 2
+                self.flip()
+                self.rect.width = card_width
+                self.rect.height = card_height
+            else:
+                self.rank = self.rank = self.rank + "X"
+        
 
 deck = []
 RANK_LIST = ['2', '3', '4', '5', '6', '7', '8', '9', 'J', 'Q', 'K', 'A']
@@ -150,7 +182,7 @@ def draw_button(surface, rect, text, font, base_color, hover_color, mouse_pos, b
 
     return hovered
 
-def draw_card(surface, rect, text, font, base_color, hover_color, mouse_pos, border_color = RED):
+def draw_card(surface, rect, text, font, base_color, hover_color, mouse_pos, border_color):
     """This makes buttons where I need them.
     -surface is the surface on which everything is placed, the screen.
     -rect is the predefined details for the button's shape and size.
@@ -167,7 +199,7 @@ def draw_card(surface, rect, text, font, base_color, hover_color, mouse_pos, bor
     pygame.draw.rect(surface, color, rect) 
     pygame.draw.rect(surface, border_color, rect, 2)  # Determines border thickness
     
-    draw_text(text, font, BLACK, surface, rect.centerx, rect.centery) # Adds text to the function
+    draw_text(text, font, RED, surface, rect.centerx, rect.centery) # Adds text to the function
 
     return hovered
 
@@ -227,7 +259,7 @@ def draw_game(surface, mouse_pos):
 
     # Draw Pile
     for card in deck:
-        draw_card(screen, card.rect, card.rank, BUTTON_FONT, WHITE, WHITE, mouse_pos)
+        draw_card(screen, card.rect, card.rank, BUTTON_FONT, card.color, card.color, mouse_pos, card.border_color)
     
 def main():
     """The main game loop."""
@@ -294,7 +326,16 @@ def main():
                         card.stop_drag()
                         if card.rect.x > SCREEN_WIDTH - 175 and card.rect.y > SCREEN_HEIGHT - 225:
                             card.put_in_discard()
-
+            
+            if event.type == pygame.MOUSEBUTTONDOWN and event.button == 2: # If the scroll button mouse button is clicked
+                for card in reversed_deck:
+                    if card.rect.collidepoint(mouse_pos):
+                        card.damage()
+            
+            if event.type == pygame.MOUSEBUTTONDOWN and event.button == 3: # If the right mouse button is clicked
+                for card in reversed_deck:
+                    if card.rect.collidepoint(mouse_pos):
+                        card.flip()
         
         if current_state == GAME:
             for card in deck:
