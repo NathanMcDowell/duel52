@@ -60,6 +60,7 @@ class Card:
     player: int
     x_coord: int
     y_coord: int
+    text: str
 
     def __init__(self, rank, suit, x, y):
         self.suit = suit
@@ -67,8 +68,10 @@ class Card:
         self.flipped = False
         if rank == "J":
             self.health = 3
+            self.text = "J*"
         else:
             self.health = 2
+            self.text = self.rank
         player = 0
         self.x_coord = x
         self.y_coord = y
@@ -115,10 +118,19 @@ class Card:
             self.color = RED
             self.border_color = BLACK
     def damage(self):
-        if self.health == 2:
+        if self.health == 3:
+            if self.flipped == False:
+                self.health = 1
+                self.rect.width = card_height
+                self.rect.height = card_width
+            elif self.flipped == True:
+                self.health = 2
+            self.text = self.rank
+        elif self.health == 2:
             self.health = 1
             self.rect.width = card_height
             self.rect.height = card_width
+
         elif self.health == 1:
             self.health = 0
             self.rect.width = card_width
@@ -128,9 +140,16 @@ class Card:
                 self.flip()
                 self.rect.width = card_width
                 self.rect.height = card_height
+                return
             else:
-                self.rank = self.rank = self.rank + "X"
-        
+                self.text = self.rank + "X"
+        elif self.health == 0:
+            if self.rank == "J":
+                self.health = 3
+                self.text = "J*"
+                
+            else:
+                self.health = 2
 
 deck = []
 RANK_LIST = ['2', '3', '4', '5', '6', '7', '8', '9', 'J', 'Q', 'K', 'A']
@@ -259,7 +278,7 @@ def draw_game(surface, mouse_pos):
 
     # Draw Pile
     for card in deck:
-        draw_card(screen, card.rect, card.rank, BUTTON_FONT, card.color, card.color, mouse_pos, card.border_color)
+        draw_card(screen, card.rect, card.text, BUTTON_FONT, card.color, card.color, mouse_pos, card.border_color)
     
 def main():
     """The main game loop."""
