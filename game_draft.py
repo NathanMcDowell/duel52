@@ -31,17 +31,18 @@ CONTROLS = "controls"
 current_state = MENU
 
 # Lines
-vert_line_1, vert_line_2, vert_line_3 = (SCREEN_WIDTH - 150) // 3, 2 * (SCREEN_WIDTH - 150) // 3, SCREEN_WIDTH - 150
+sidebar_width = 300
+vert_line_1, vert_line_2, vert_line_3 = (SCREEN_WIDTH - sidebar_width) // 3, 2 * (SCREEN_WIDTH - sidebar_width) // 3, SCREEN_WIDTH - sidebar_width
 
-# Rectangles
-# (x coordinate, y coordinate, width, height)
+# Coordinate ReferencesS
 button_width, button_height = 260, 64
 card_width, card_height = 100, 150
 centered_width = (SCREEN_WIDTH // 2) - (button_width // 2)
 card_centered_height = (SCREEN_HEIGHT // 2) - (card_height // 2)
-draw_pile_height = (SCREEN_HEIGHT // 4) + 25
+draw_pile_x, draw_pile_y = SCREEN_WIDTH - 175, (SCREEN_HEIGHT // 4) - 50
 card_two_thirds_height = (2 * SCREEN_HEIGHT // 3) - (card_height // 2)
 
+# (x coordinate, y coordinate, width, height)
 # Menu Rectangles
 start_rect = pygame.Rect(centered_width, 100, button_width, button_height)
 controls_rect = pygame.Rect(centered_width, 200, button_width, button_height)
@@ -75,9 +76,9 @@ class Card:
             self.text = self.rank
         self.player = 0
         self.lane = 0
-        self.x_coord = x
-        self.y_coord = y
-        
+        self.x_coord = x + (card_width // 2)
+        self.y_coord = y + (card_height // 2)
+
         self.rect = pygame.Rect(self.x_coord, self.y_coord, card_width, card_height)
 
         self.dragging = False
@@ -150,9 +151,9 @@ class Card:
             if self.rank == "J":
                 self.health = 3
                 self.text = "J*"
-                
             else:
                 self.health = 2
+                self.text = self.rank
 
 deck = []
 RANK_LIST = ['2', '3', '4', '5', '6', '7', '8', '9', 'J', 'Q', 'K', 'A']
@@ -160,7 +161,7 @@ RANK_LIST = ['2', '3', '4', '5', '6', '7', '8', '9', 'J', 'Q', 'K', 'A']
 SUIT_LIST = ['S', 'D', 'C', 'H']
 for suit in SUIT_LIST:
     for rank in RANK_LIST:
-        card = Card(rank, suit, (SCREEN_WIDTH - (card_width + 25)), draw_pile_height)
+        card = Card(rank, suit, draw_pile_x, draw_pile_y)
         deck.append(card)
 random.shuffle(deck)
 reversed_deck = list(reversed(deck))
@@ -276,10 +277,10 @@ def draw_game(surface, mouse_pos):
     draw_line(surface, WHITE, (vert_line_1, 0), (vert_line_1, SCREEN_HEIGHT))
     draw_line(surface, WHITE, (vert_line_2, 0), (vert_line_2, SCREEN_HEIGHT))
     draw_line(surface, WHITE, (vert_line_3, 0), (vert_line_3, SCREEN_HEIGHT))
-    # Discard pile division
-    draw_line(surface, WHITE, (vert_line_3, SCREEN_HEIGHT - 200), (SCREEN_WIDTH, SCREEN_HEIGHT - 200))
-    draw_line(surface, WHITE, (vert_line_3, SCREEN_HEIGHT - 400), (SCREEN_WIDTH, SCREEN_HEIGHT - 400))
+    # Horizontal lines
     draw_line(surface, WHITE, (vert_line_3, 200), (SCREEN_WIDTH, 200))
+    draw_line(surface, WHITE, (0, SCREEN_HEIGHT - 400), (SCREEN_WIDTH, SCREEN_HEIGHT - 400))
+    draw_line(surface, WHITE, (vert_line_3, SCREEN_HEIGHT - 200), (SCREEN_WIDTH, SCREEN_HEIGHT - 200))
 
     # Draw Pile
     for card in deck:
@@ -360,7 +361,7 @@ def main():
                 for card in reversed_deck:
                     if card.rect.collidepoint(mouse_pos):
                         card.flip()
-                print(mouse_pos) # DEBUG HELPER
+                # print(mouse_pos) # DEBUG HELPER
         if current_state == GAME:
             for card in deck:
                 card.update_drag(mouse_pos)
