@@ -24,7 +24,7 @@ GAME_FONT = pygame.font.SysFont("Arial", 70)
 sidebar_width = 300
 vert_line_1, vert_line_2, vert_line_3 = (SCREEN_WIDTH - sidebar_width) // 3, 2 * (SCREEN_WIDTH - sidebar_width) // 3, SCREEN_WIDTH - sidebar_width
 
-# Coordinate ReferencesS
+# Coordinate References
 button_width, button_height = 260, 64
 card_width, card_height = 100, 150
 centered_width = (SCREEN_WIDTH // 2) - (button_width // 2)
