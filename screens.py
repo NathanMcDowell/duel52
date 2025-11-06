@@ -90,6 +90,8 @@ class Card:
         self.dragging = False
         if self.rect.x < 0:
             self.rect.x = 5
+        elif self.rect.x > SCREEN_WIDTH - 100:
+            self.rect.x = SCREEN_WIDTH - 105
         elif self.rect.x <= vert_line_1 - 50 and self.rect.x > vert_line_1 - 100: # Shifts to the left of the vert_line_1
             self.rect.x = vert_line_1 - 105
         elif self.rect.x > vert_line_1 - 50 and self.rect.x < vert_line_1: # Shifts to the right of the vert_line_1
@@ -100,6 +102,7 @@ class Card:
             self.rect.x = vert_line_2 + 5
         elif self.rect.x <= vert_line_3 - 50 and self.rect.x > vert_line_3 - 100: # Shifts to the left of the vert_line_1
             self.rect.x = vert_line_3 - 105
+        
         
         
 
