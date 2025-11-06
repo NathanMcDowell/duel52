@@ -1,24 +1,14 @@
+"""This file makes all the game assets, including rectangles, the card class, and the screens"""
+
 import pygame
 import random
-from drawing_tools import draw_text, draw_button, draw_card, draw_line
+from drawing_tools import *
 
+#Initialization stuff
 pygame.init()
-
 SCREEN_WIDTH, SCREEN_HEIGHT = 1400, 800
 screen = pygame.display.set_mode((SCREEN_WIDTH, SCREEN_HEIGHT))
 pygame.display.set_caption("Game Draft")
-
-WHITE = (255, 255, 255)
-BLACK = (0, 0, 0)
-DARKGRAY = (30, 30, 30)
-LIGHTGRAY = (200, 200, 200)
-BLUE = (0, 120, 215)
-GREEN = (0, 180, 0)
-RED = (200, 30, 30)
-
-TITLE_FONT = pygame.font.SysFont("Arial", 70)
-BUTTON_FONT = pygame.font.SysFont("Arial", 50)
-GAME_FONT = pygame.font.SysFont("Arial", 70)
 
 # Lines
 sidebar_width = 300
@@ -27,6 +17,7 @@ vert_line_1, vert_line_2, vert_line_3 = (SCREEN_WIDTH - sidebar_width) // 3, 2 *
 # Coordinate References
 button_width, button_height = 260, 64
 card_width, card_height = 100, 150
+
 centered_width = (SCREEN_WIDTH // 2) - (button_width // 2)
 card_centered_height = (SCREEN_HEIGHT // 2) - (card_height // 2)
 draw_pile_x, draw_pile_y = SCREEN_WIDTH - 175, (SCREEN_HEIGHT // 4) - 50
