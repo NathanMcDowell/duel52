@@ -18,7 +18,7 @@ GAME_FONT = pygame.font.SysFont("Arial", 70)
 # Lines
 sidebar_width = 300
 vert_line_1, vert_line_2, vert_line_3 = (SCREEN_WIDTH - sidebar_width) // 3, 2 * (SCREEN_WIDTH - sidebar_width) // 3, SCREEN_WIDTH - sidebar_width
-hors_midline = SCREEN_HEIGHT // 2
+horz_midline = SCREEN_HEIGHT // 2
 # Coordinate References
 button_width, button_height = 260, 64
 card_width, card_height = 100, 150
@@ -92,26 +92,33 @@ class Card:
         if card.rect.x > SCREEN_WIDTH - 175 and card.rect.y > SCREEN_HEIGHT - 425 and card.rect.y < 500:
                             card.put_in_discard()
         
-        if self.rect.x < 0:
+        if self.rect.x < 0: # Shifts off the left wall
             self.rect.x = 5
-        elif self.rect.x > SCREEN_WIDTH - 100:
-            self.rect.x = SCREEN_WIDTH - 105
-        elif self.rect.x <= vert_line_1 - 50 and self.rect.x > vert_line_1 - 100: # Shifts to the left of the vert_line_1
-            self.rect.x = vert_line_1 - 105
-        elif self.rect.x > vert_line_1 - 50 and self.rect.x < vert_line_1: # Shifts to the right of the vert_line_1
+        elif self.rect.x > SCREEN_WIDTH - card_width: # Shifts off the right wall
+            self.rect.x = SCREEN_WIDTH - card_width - 5
+        elif self.rect.x <= vert_line_1 - card_width // 2 and self.rect.x > vert_line_1 - card_width: # Shifts to the left of the vert_line_1
+            self.rect.x = vert_line_1 - card_width - 5
+        elif self.rect.x > vert_line_1 - card_width // 2 and self.rect.x < vert_line_1: # Shifts to the right of the vert_line_1
             self.rect.x = vert_line_1 + 5
-        elif self.rect.x <= vert_line_2 - 50 and self.rect.x > vert_line_2 - 100: # Shifts to the left of the vert_line_1
-            self.rect.x = vert_line_2 - 105
-        elif self.rect.x > vert_line_2 - 50 and self.rect.x < vert_line_2: # Shifts to the right of the vert_line_2
+        elif self.rect.x <= vert_line_2 - card_width // 2 and self.rect.x > vert_line_2 - card_width: # Shifts to the left of the vert_line_1
+            self.rect.x = vert_line_2 - card_width - 5
+        elif self.rect.x > vert_line_2 - card_width // 2 and self.rect.x < vert_line_2: # Shifts to the right of the vert_line_2
             self.rect.x = vert_line_2 + 5
-        elif self.rect.x <= vert_line_3 - 50 and self.rect.x > vert_line_3 - 100: # Shifts to the left of the vert_line_1
-            self.rect.x = vert_line_3 - 105
+        elif self.rect.x <= vert_line_3 - card_width // 2 and self.rect.x > vert_line_3 - card_width: # Shifts to the left of the vert_line_1
+            self.rect.x = vert_line_3 - card_width - 5
         
-        if self.rect.y < 0:
+        if self.rect.y < 0: # Shifts off the top wall
             self.rect.y = 5
-        elif self.rect.y > SCREEN_HEIGHT - 150:
-            self.rect.y = SCREEN_HEIGHT - 155
-        # elif self.rect.y > 
+        elif self.rect.y > SCREEN_HEIGHT - card_height: # Shifts off the bottom wall
+            self.rect.y = SCREEN_HEIGHT - card_height - 5
+        # This stuff will need to be changed once turns are an option. 
+        # At that point you will not be able to move cards onto the opponent's side.
+        elif self.rect.y > horz_midline - card_height // 2 and self.rect.y < horz_midline: # Shifts below the midline
+            self.rect.y = horz_midline + 5
+        elif self.rect.y <= horz_midline - card_height // 2 and self.rect.y > horz_midline - card_height: # Shifts above the midline
+            self.rect.y = horz_midline - card_height - 5
+        
+
         
         
 
@@ -230,7 +237,7 @@ def draw_game(surface, mouse_pos):
     draw_line(surface, WHITE, (vert_line_3, 0), (vert_line_3, SCREEN_HEIGHT))
     # Horizontal lines
     draw_line(surface, WHITE, (vert_line_3, SCREEN_HEIGHT // 4), (SCREEN_WIDTH, SCREEN_HEIGHT // 4))
-    draw_line(surface, WHITE, (0, hors_midline), (SCREEN_WIDTH, hors_midline))
+    draw_line(surface, WHITE, (0, horz_midline), (SCREEN_WIDTH, horz_midline))
     draw_line(surface, WHITE, (vert_line_3, 3 * SCREEN_HEIGHT // 4), (SCREEN_WIDTH, 3 * SCREEN_HEIGHT // 4))
 
     # Draw Pile
