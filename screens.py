@@ -28,6 +28,9 @@ card_centered_height = (SCREEN_HEIGHT // 2) - (card_height // 2)
 draw_pile_x, draw_pile_y = SCREEN_WIDTH - 175, (SCREEN_HEIGHT // 4) - 50
 card_two_thirds_height = (2 * SCREEN_HEIGHT // 3) - (card_height // 2)
 
+# Lane Divider references
+vert_line_1 
+
 # (x coordinate, y coordinate, width, height)
 # Menu Rectangles
 start_rect = pygame.Rect(centered_width, 100, button_width, button_height)
@@ -85,6 +88,14 @@ class Card:
     def stop_drag(self):
         """Call this when mouse button is released"""
         self.dragging = False
+        if self.rect.x < 0:
+            self.rect.x = 5
+        elif self.rect.x > vert_line_1 - 50 and self.rect.x < vert_line_1:
+            self.rect.x = vert_line_1 + 5
+        elif self.rect.x <= vert_line_1 - 50 and self.rect.x > vert_line_1 - 100:
+            self.rect.x = vert_line_1 - 105
+        
+        
 
     def update_drag(self, mouse_pos):
         """Call this every frame while dragging"""
