@@ -129,6 +129,8 @@ class Card:
             self.lane = 3
         else:
             self.lane = 0
+        if self.rect.y > horz_midline:
+            self.lane = self.lane * 2
         print(f"Lane {self.lane}")
 
     def update_drag(self, mouse_pos):
