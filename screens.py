@@ -89,8 +89,8 @@ class Card:
         """Call this when mouse button is released"""
         self.dragging = False
         # Moves it to the discard pile if in those boundaries
-        if card.rect.x > SCREEN_WIDTH - 175 and card.rect.y > SCREEN_HEIGHT - 425 and card.rect.y < 500:
-                            card.put_in_discard()
+        if self.rect.x > SCREEN_WIDTH - 175 and self.rect.y > SCREEN_HEIGHT - 425 and self.rect.y < 500:
+            self.put_in_discard()
         
         if self.rect.x < 0: # Shifts off the left wall
             self.rect.x = 5
