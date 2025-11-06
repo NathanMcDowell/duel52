@@ -18,7 +18,7 @@ GAME_FONT = pygame.font.SysFont("Arial", 70)
 # Lines
 sidebar_width = 300
 vert_line_1, vert_line_2, vert_line_3 = (SCREEN_WIDTH - sidebar_width) // 3, 2 * (SCREEN_WIDTH - sidebar_width) // 3, SCREEN_WIDTH - sidebar_width
-
+hors_midline = SCREEN_HEIGHT // 2
 # Coordinate References
 button_width, button_height = 260, 64
 card_width, card_height = 100, 150
@@ -29,7 +29,7 @@ draw_pile_x, draw_pile_y = SCREEN_WIDTH - 175, (SCREEN_HEIGHT // 4) - 50
 card_two_thirds_height = (2 * SCREEN_HEIGHT // 3) - (card_height // 2)
 
 # Lane Divider references
-vert_line_1 
+
 
 # (x coordinate, y coordinate, width, height)
 # Menu Rectangles
@@ -88,6 +88,10 @@ class Card:
     def stop_drag(self):
         """Call this when mouse button is released"""
         self.dragging = False
+        # Moves it to the discard pile if in those boundaries
+        if card.rect.x > SCREEN_WIDTH - 175 and card.rect.y > SCREEN_HEIGHT - 425 and card.rect.y < 500:
+                            card.put_in_discard()
+        
         if self.rect.x < 0:
             self.rect.x = 5
         elif self.rect.x > SCREEN_WIDTH - 100:
@@ -107,6 +111,7 @@ class Card:
             self.rect.y = 5
         elif self.rect.y > SCREEN_HEIGHT - 150:
             self.rect.y = SCREEN_HEIGHT - 155
+        # elif self.rect.y > 
         
         
 
@@ -224,9 +229,9 @@ def draw_game(surface, mouse_pos):
     draw_line(surface, WHITE, (vert_line_2, 0), (vert_line_2, SCREEN_HEIGHT))
     draw_line(surface, WHITE, (vert_line_3, 0), (vert_line_3, SCREEN_HEIGHT))
     # Horizontal lines
-    draw_line(surface, WHITE, (vert_line_3, 200), (SCREEN_WIDTH, 200))
-    draw_line(surface, WHITE, (0, SCREEN_HEIGHT - 400), (SCREEN_WIDTH, SCREEN_HEIGHT - 400))
-    draw_line(surface, WHITE, (vert_line_3, SCREEN_HEIGHT - 200), (SCREEN_WIDTH, SCREEN_HEIGHT - 200))
+    draw_line(surface, WHITE, (vert_line_3, SCREEN_HEIGHT // 4), (SCREEN_WIDTH, SCREEN_HEIGHT // 4))
+    draw_line(surface, WHITE, (0, hors_midline), (SCREEN_WIDTH, hors_midline))
+    draw_line(surface, WHITE, (vert_line_3, 3 * SCREEN_HEIGHT // 4), (SCREEN_WIDTH, 3 * SCREEN_HEIGHT // 4))
 
     # Draw Pile
     for card in deck:
