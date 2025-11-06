@@ -28,9 +28,6 @@ card_centered_height = (SCREEN_HEIGHT // 2) - (card_height // 2)
 draw_pile_x, draw_pile_y = SCREEN_WIDTH - 175, (SCREEN_HEIGHT // 4) - 50
 card_two_thirds_height = (2 * SCREEN_HEIGHT // 3) - (card_height // 2)
 
-# Lane Divider references
-
-
 # (x coordinate, y coordinate, width, height)
 # Menu Rectangles
 start_rect = pygame.Rect(centered_width, 100, button_width, button_height)
@@ -131,7 +128,7 @@ class Card:
             self.lane = 0
         if self.rect.y > horz_midline:
             self.lane = self.lane * 2
-        print(f"Lane {self.lane}")
+        # print(f"Lane {self.lane}") # DEBUG HELPER
 
     def update_drag(self, mouse_pos):
         """Call this every frame while dragging"""
@@ -140,8 +137,10 @@ class Card:
             self.rect.y = mouse_pos[1] - self.offset_y
 
     def put_in_discard(self):
-        self.rect.x = 1275
-        self.rect.y = 425
+        # SCREEN_WIDTH, SCREEN_HEIGHT = 1400, 800
+        # card_width, card_height = 100, 150
+        self.rect.x = SCREEN_WIDTH - card_width - 25
+        self.rect.y = SCREEN_HEIGHT - card_height - 225
     
     def flip(self):
         if self.flipped == False:
