@@ -11,11 +11,6 @@ BLUE = (0, 120, 215)
 GREEN = (0, 180, 0)
 RED = (200, 30, 30)
 
-#Fonts
-TITLE_FONT = pygame.font.SysFont("Arial", 70)
-BUTTON_FONT = pygame.font.SysFont("Arial", 50)
-GAME_FONT = pygame.font.SysFont("Arial", 70)
-
 
 def draw_text(text, font, color, surface, x, y, center = True):
     """When I need to draw text, this is the function that I will use to do so.

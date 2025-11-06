@@ -4,11 +4,16 @@ import pygame
 import random
 from drawing_tools import *
 
-#Initialization stuff
+# Initialization stuff
 pygame.init()
 SCREEN_WIDTH, SCREEN_HEIGHT = 1400, 800
 screen = pygame.display.set_mode((SCREEN_WIDTH, SCREEN_HEIGHT))
 pygame.display.set_caption("Game Draft")
+
+# Fonts
+TITLE_FONT = pygame.font.SysFont("Arial", 70)
+BUTTON_FONT = pygame.font.SysFont("Arial", 50)
+GAME_FONT = pygame.font.SysFont("Arial", 70)
 
 # Lines
 sidebar_width = 300
