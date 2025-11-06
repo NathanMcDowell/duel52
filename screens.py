@@ -103,6 +103,10 @@ class Card:
         elif self.rect.x <= vert_line_3 - 50 and self.rect.x > vert_line_3 - 100: # Shifts to the left of the vert_line_1
             self.rect.x = vert_line_3 - 105
         
+        if self.rect.y < 0:
+            self.rect.y = 5
+        elif self.rect.y > SCREEN_HEIGHT - 150:
+            self.rect.y = SCREEN_HEIGHT - 155
         
         
 
