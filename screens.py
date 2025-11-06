@@ -117,10 +117,19 @@ class Card:
             self.rect.y = horz_midline + 5
         elif self.rect.y <= horz_midline - card_height // 2 and self.rect.y > horz_midline - card_height: # Shifts above the midline
             self.rect.y = horz_midline - card_height - 5
-        
+        self.assign_lane()
 
-        
-        
+    def assign_lane(self):
+        "Takes the current area that the card is in and uses it to define which lane it is in."
+        if self.rect.x < vert_line_1:
+            self.lane = 1
+        elif self.rect.x < vert_line_2:
+            self.lane = 2
+        elif self.rect.x < vert_line_3:
+            self.lane = 3
+        else:
+            self.lane = 0
+        print(f"Lane {self.lane}")
 
     def update_drag(self, mouse_pos):
         """Call this every frame while dragging"""

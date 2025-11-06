@@ -83,8 +83,6 @@ def main():
                 if current_state == GAME:
                     for card in deck:
                         card.stop_drag()
-                        # Moves card to lock in place in the discard.
-                        
             
             if event.type == pygame.MOUSEBUTTONDOWN and event.button == 2: # If the scroll button mouse button is clicked
                 for card in reversed_deck:
