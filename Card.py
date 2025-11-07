@@ -66,12 +66,14 @@ class Card:
             self.rect.x = vert_line_1 - card_width - 5
         elif self.rect.x > vert_line_1 - card_width // 2 and self.rect.x < vert_line_1: # Shifts to the right of the vert_line_1
             self.rect.x = vert_line_1 + 5
-        elif self.rect.x <= vert_line_2 - card_width // 2 and self.rect.x > vert_line_2 - card_width: # Shifts to the left of the vert_line_1
+        elif self.rect.x <= vert_line_2 - card_width // 2 and self.rect.x > vert_line_2 - card_width: # Shifts to the left of the vert_line_2
             self.rect.x = vert_line_2 - card_width - 5
         elif self.rect.x > vert_line_2 - card_width // 2 and self.rect.x < vert_line_2: # Shifts to the right of the vert_line_2
             self.rect.x = vert_line_2 + 5
-        elif self.rect.x <= vert_line_3 - card_width // 2 and self.rect.x > vert_line_3 - card_width: # Shifts to the left of the vert_line_1
+        elif self.rect.x <= vert_line_3 - card_width // 2 and self.rect.x > vert_line_3 - card_width: # Shifts to the left of the vert_line_3
             self.rect.x = vert_line_3 - card_width - 5
+        elif self.rect.x > vert_line_3 - card_width // 2 and self.rect.x < vert_line_3: # Shifts to the right of the vert_line_3
+            self.rect.x = vert_line_3 + 5
         
         if self.rect.y < 0: # Shifts off the top wall
             self.rect.y = 5
