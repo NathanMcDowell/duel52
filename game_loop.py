@@ -1,11 +1,11 @@
 import pygame
 import sys
 
+pygame.init()
+
 from screens import *
 from drawing_tools import *
 from constants import *
-
-pygame.init()
 
 screen = pygame.display.set_mode((SCREEN_WIDTH, SCREEN_HEIGHT))
 pygame.display.set_caption("Game Draft")
