@@ -20,7 +20,7 @@ card_width, card_height = 100, 150
 button_centered_x = (SCREEN_WIDTH // 2) - (button_width // 2)
 draw_pile_x, draw_pile_y = SCREEN_WIDTH - 175, (SCREEN_HEIGHT // 4) - 50
 
-#Colors
+# Colors
 WHITE = (255, 255, 255)
 BLACK = (0, 0, 0)
 DARKGRAY = (30, 30, 30)
@@ -28,3 +28,6 @@ LIGHTGRAY = (200, 200, 200)
 BLUE = (0, 120, 215)
 GREEN = (0, 180, 0)
 RED = (200, 30, 30)
+
+# Turn Tracker
+player_turn = 1

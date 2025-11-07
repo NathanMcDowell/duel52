@@ -23,7 +23,7 @@ current_state = MENU
 def main():
     """The main game loop."""
     global current_state
-
+    global player_turn
     running = True
     while running:
         mouse_pos = pygame.mouse.get_pos()
@@ -81,7 +81,11 @@ def main():
                         if concede_rect.collidepoint(mouse_pos):
                             current_state = MENU
                         if turn_rect.collidepoint(mouse_pos):
-                            "current_state = MENU"
+                            if player_turn == 1:
+                                player_turn = 2
+                            elif player_turn == 2:
+                                player_turn = 1
+                            print(player_turn)
                         for card in reversed_deck:
                             if card.rect.collidepoint(mouse_pos):
                                 card.start_drag(mouse_pos)
@@ -91,7 +95,7 @@ def main():
             if event.type == pygame.MOUSEBUTTONUP and event.button == 1: # If the left mouse button is lifted
                 if current_state == GAME:
                     for card in deck:
-                        card.stop_drag()
+                        card.stop_drag(player_turn)
             
             # Damage for cards
             if event.type == pygame.MOUSEBUTTONDOWN and event.button == 2: # If the scroll button mouse button is clicked

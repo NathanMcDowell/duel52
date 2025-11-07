@@ -50,7 +50,7 @@ class Card:
         self.offset_x = mouse_pos[0] - self.rect.x
         self.offset_y = mouse_pos[1] - self.rect.y
     
-    def stop_drag(self):
+    def stop_drag(self, player_turn):
         """Call this when mouse button is released"""
         self.dragging = False
         # Moves it to the discard pile if in those boundaries
@@ -75,15 +75,19 @@ class Card:
             self.rect.x = vert_line_3 + 5
         
         if self.rect.y < 0: # Shifts off the top wall
-            self.rect.y = 5
-        elif self.rect.y > SCREEN_HEIGHT - card_height: # Shifts off the bottom wall
-            self.rect.y = SCREEN_HEIGHT - card_height - 5
-        # This stuff will need to be changed once turns are an option. 
-        # At that point you will not be able to move cards onto the opponent's side.
-        elif self.rect.y > horz_midline - card_height // 2 and self.rect.y < horz_midline: # Shifts below the midline
-            self.rect.y = horz_midline + 5
-        elif self.rect.y <= horz_midline - card_height // 2 and self.rect.y > horz_midline - card_height: # Shifts above the midline
-            self.rect.y = horz_midline - card_height - 5
+                self.rect.y = 5
+        if self.rect.y > SCREEN_HEIGHT - card_height: # Shifts off the bottom wall
+                self.rect.y = SCREEN_HEIGHT - card_height - 5
+        # Pushes the card off of the opponent's side
+        if player_turn == 1:    
+            if self.rect.y > horz_midline - card_height and self.rect.x < vert_line_3:
+                self.rect.y = horz_midline - card_height - 5
+            # elif self.rect.y <= horz_midline - card_height // 2 and self.rect.y > horz_midline - card_height: # Shifts above the midline
+            #     self.rect.y = horz_midline - card_height - 5
+        elif player_turn == 2:              
+            if self.rect.y < horz_midline and self.rect.x < vert_line_3: # Shifts below the midline
+                self.rect.y = horz_midline + 5
+        
         self.assign_lane()
 
     def assign_lane(self):
