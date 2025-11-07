@@ -3,7 +3,6 @@
 import pygame
 
 from drawing_tools import *
-from screens import *
 from constants import *
 
 
