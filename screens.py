@@ -80,7 +80,6 @@ def draw_game(surface, mouse_pos):
     surface.fill(DARKGRAY)
     
     # Buttons
-    draw_button(screen, back_rect, "Back to Menu", BUTTON_FONT, RED, GREEN, mouse_pos)
     draw_button(screen, turn_rect, "Turn", BUTTON_FONT, RED, GREEN, mouse_pos)
     draw_button(screen, concede_rect, "Quit", BUTTON_FONT, RED, GREEN, mouse_pos)
 
