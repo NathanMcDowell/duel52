@@ -3,10 +3,10 @@ import sys
 
 from screens import *
 from drawing_tools import *
+from constants import *
 
 pygame.init()
 
-SCREEN_WIDTH, SCREEN_HEIGHT = 1400, 800
 screen = pygame.display.set_mode((SCREEN_WIDTH, SCREEN_HEIGHT))
 pygame.display.set_caption("Game Draft")
 

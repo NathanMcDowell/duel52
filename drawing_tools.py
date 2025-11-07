@@ -1,15 +1,7 @@
 """This file has the functions for making all of the assets"""
 
 import pygame
-
-#Colors
-WHITE = (255, 255, 255)
-BLACK = (0, 0, 0)
-DARKGRAY = (30, 30, 30)
-LIGHTGRAY = (200, 200, 200)
-BLUE = (0, 120, 215)
-GREEN = (0, 180, 0)
-RED = (200, 30, 30)
+from constants import *
 
 
 def draw_text(text, font, color, surface, x, y, center = True):
