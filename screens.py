@@ -1,6 +1,7 @@
 """This file makes all the game assets, including rectangles, the card class, and the screens"""
 
 import pygame
+import random
 
 from drawing_tools import *
 from Card import *
@@ -11,28 +12,13 @@ pygame.init()
 screen = pygame.display.set_mode((SCREEN_WIDTH, SCREEN_HEIGHT))
 pygame.display.set_caption("Game Draft")
 
-# Fonts
-TITLE_FONT = pygame.font.SysFont("Arial", 70)
-BUTTON_FONT = pygame.font.SysFont("Arial", 50)
-GAME_FONT = pygame.font.SysFont("Arial", 70)
-
-
-sidebar_width = 300
-vert_line_1, vert_line_2, vert_line_3 = (SCREEN_WIDTH - sidebar_width) // 3, 2 * (SCREEN_WIDTH - sidebar_width) // 3, SCREEN_WIDTH - sidebar_width
-horz_midline = SCREEN_HEIGHT // 2
-
-
-
-centered_width = (SCREEN_WIDTH // 2) - (button_width // 2)
-card_centered_height = (SCREEN_HEIGHT // 2) - (card_height // 2)
-draw_pile_x, draw_pile_y = SCREEN_WIDTH - 175, (SCREEN_HEIGHT // 4) - 50
 
 # (x coordinate, y coordinate, width, height)
 # Menu Rectangles
-start_rect = pygame.Rect(centered_width, 100, button_width, button_height)
-controls_rect = pygame.Rect(centered_width, 200, button_width, button_height)
-options_rect = pygame.Rect(centered_width, 300, button_width, button_height)
-quit_rect = pygame.Rect(centered_width, 400, button_width, button_height)
+start_rect = pygame.Rect(button_centered_width, 100, button_width, button_height)
+controls_rect = pygame.Rect(button_centered_width, 200, button_width, button_height)
+options_rect = pygame.Rect(button_centered_width, 300, button_width, button_height)
+quit_rect = pygame.Rect(button_centered_width, 400, button_width, button_height)
 # Start Up Rectangles
 back_rect = pygame.Rect(40, SCREEN_HEIGHT - 100, button_width + 60, button_height)
 begin_rect = pygame.Rect(500, SCREEN_HEIGHT - 100, button_width, button_height)

@@ -1,5 +1,6 @@
+'''This file has the Card class.'''
+
 import pygame
-import random
 
 from drawing_tools import *
 from screens import *
