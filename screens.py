@@ -15,10 +15,10 @@ pygame.display.set_caption("Game Draft")
 
 # (x coordinate, y coordinate, width, height)
 # Menu Rectangles
-start_rect = pygame.Rect(button_centered_width, 100, button_width, button_height)
-controls_rect = pygame.Rect(button_centered_width, 200, button_width, button_height)
-options_rect = pygame.Rect(button_centered_width, 300, button_width, button_height)
-quit_rect = pygame.Rect(button_centered_width, 400, button_width, button_height)
+start_rect = pygame.Rect(button_centered_x, 100, button_width, button_height)
+controls_rect = pygame.Rect(button_centered_x, 200, button_width, button_height)
+options_rect = pygame.Rect(button_centered_x, 300, button_width, button_height)
+quit_rect = pygame.Rect(button_centered_x, 400, button_width, button_height)
 # Start Up Rectangles
 back_rect = pygame.Rect(40, SCREEN_HEIGHT - 100, button_width + 60, button_height)
 begin_rect = pygame.Rect(500, SCREEN_HEIGHT - 100, button_width, button_height)

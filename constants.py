@@ -17,7 +17,7 @@ horz_midline = SCREEN_HEIGHT // 2
 # Coordinate and Size References
 button_width, button_height = 260, 64
 card_width, card_height = 100, 150
-button_centered_width = (SCREEN_WIDTH // 2) - (button_width // 2)
+button_centered_x = (SCREEN_WIDTH // 2) - (button_width // 2)
 draw_pile_x, draw_pile_y = SCREEN_WIDTH - 175, (SCREEN_HEIGHT // 4) - 50
 
 #Colors
