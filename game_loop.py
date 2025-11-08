@@ -88,7 +88,7 @@ def main():
                             print(player_turn)
                         for card in reversed_deck:
                             if card.rect.collidepoint(mouse_pos):
-                                card.start_drag(mouse_pos)
+                                card.start_drag(mouse_pos, player_turn)
                                 break
             
             # Card stops moving when click is lifted

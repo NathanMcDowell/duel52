@@ -44,12 +44,17 @@ class Card:
     def __repr__(self):
         return f"{self.rank} of {self.suit} with {self.health} health, flipped: {self.flipped}"
     
-    def start_drag(self, mouse_pos):
+    def start_drag(self, mouse_pos, player_turn):
         """Call this when mouse clicks the card"""
-        self.dragging = True
-        self.offset_x = mouse_pos[0] - self.rect.x
-        self.offset_y = mouse_pos[1] - self.rect.y
-    
+        if player_turn == self.player or self.player == 0:
+            print(f"Player_turn: {player_turn}, self.player: {self.player}")
+            print("if ran")
+            self.dragging = True
+            self.offset_x = mouse_pos[0] - self.rect.x
+            self.offset_y = mouse_pos[1] - self.rect.y
+        else:    
+            print(f"Player_turn: {player_turn}, self.player: {self.player}")
+            print("if didn't run")
     def stop_drag(self, player_turn):
         """Call this when mouse button is released"""
         self.dragging = False
@@ -80,15 +85,24 @@ class Card:
                 self.rect.y = SCREEN_HEIGHT - card_height - 5
         # Pushes the card off of the opponent's side
         if player_turn == 1:    
-            if self.rect.y > horz_midline - card_height and self.rect.x < vert_line_3:
-                self.rect.y = horz_midline - card_height - 5
-            # elif self.rect.y <= horz_midline - card_height // 2 and self.rect.y > horz_midline - card_height: # Shifts above the midline
-            #     self.rect.y = horz_midline - card_height - 5
-        elif player_turn == 2:              
-            if self.rect.y < horz_midline and self.rect.x < vert_line_3: # Shifts below the midline
-                self.rect.y = horz_midline + 5
+            if self.player == 1:
+                if self.rect.y > horz_midline - card_height and self.rect.x < vert_line_3:
+                    self.rect.y = horz_midline - card_height - 5
+
+        elif player_turn == 2:
+            if self.player == 2:
+                if self.rect.y < horz_midline and self.rect.x < vert_line_3: # Shifts below the midline
+                    self.rect.y = horz_midline + 5
         
         self.assign_lane()
+        self.assign_player()
+        
+
+    def assign_player(self):
+        if self.rect.x > vert_line_3 and self.rect.y < 150:
+            self.player = 1
+        elif self.rect.x > vert_line_3 and self.rect.y > SCREEN_HEIGHT - 250:
+            self.player = 2
 
     def assign_lane(self):
         "Takes the current area that the card is in and uses it to define which lane it is in."
@@ -115,6 +129,7 @@ class Card:
         # card_width, card_height = 100, 150
         self.rect.x = SCREEN_WIDTH - card_width - 25
         self.rect.y = SCREEN_HEIGHT - card_height - 225
+        self.player = 0
     
     def flip(self):
         if self.flipped == False:
