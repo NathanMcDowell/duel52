@@ -55,6 +55,7 @@ class Card:
         else:    
             print(f"Player_turn: {player_turn}, self.player: {self.player}")
             print("if didn't run")
+    
     def stop_drag(self, player_turn):
         """Call this when mouse button is released"""
         self.dragging = False
@@ -84,7 +85,10 @@ class Card:
         if self.rect.y > SCREEN_HEIGHT - card_height: # Shifts off the bottom wall
                 self.rect.y = SCREEN_HEIGHT - card_height - 5
         # Pushes the card off of the opponent's side
-        if player_turn == 1:    
+        if self.player == 0:
+            if self.rect.x < vert_line_3 + 5:
+                self.rect.x = vert_line_3 + 5
+        elif player_turn == 1:    
             if self.player == 1:
                 if self.rect.y > horz_midline - card_height and self.rect.x < vert_line_3:
                     self.rect.y = horz_midline - card_height - 5
@@ -94,6 +98,7 @@ class Card:
                 if self.rect.y < horz_midline and self.rect.x < vert_line_3: # Shifts below the midline
                     self.rect.y = horz_midline + 5
         
+
         self.assign_lane()
         self.assign_player()
         
