@@ -31,12 +31,27 @@ deck = []
 RANK_LIST = ['2', '3', '4', '5', '6', '7', '8', '9', 'J', 'Q', 'K', 'A']
             # Spades, Diamonds, Clubs, Hearts
 SUIT_LIST = ['S', 'D', 'C', 'H']
+starting_hand_count = 0
+card_spread = SCREEN_WIDTH - sidebar_width + 25
 for suit in SUIT_LIST:
-    for rank in RANK_LIST:
+    for rank in RANK_LIST:        
         card = Card(rank, suit, draw_pile_x, draw_pile_y)
         deck.append(card)
 random.shuffle(deck)
 reversed_deck = list(reversed(deck))
+for card in reversed_deck:
+    if starting_hand_count == 5:
+        card_spread = SCREEN_WIDTH - sidebar_width + 25
+    if starting_hand_count < 5:
+        card.rect.y = 25
+        card.rect.x = card_spread
+        starting_hand_count += 1
+        
+    elif starting_hand_count < 10:
+        card.rect.y = SCREEN_HEIGHT - card_height - 25
+        card.rect.x = card_spread
+        starting_hand_count += 1
+    card_spread += 25
 
 def draw_menu(surface, mouse_pos):
     """Makes the menu title screen.

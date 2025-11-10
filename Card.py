@@ -47,14 +47,10 @@ class Card:
     def start_drag(self, mouse_pos, player_turn):
         """Call this when mouse clicks the card"""
         if player_turn == self.player or self.player == 0:
-            print(f"Player_turn: {player_turn}, self.player: {self.player}")
-            print("if ran")
             self.dragging = True
             self.offset_x = mouse_pos[0] - self.rect.x
             self.offset_y = mouse_pos[1] - self.rect.y
-        else:    
-            print(f"Player_turn: {player_turn}, self.player: {self.player}")
-            print("if didn't run")
+        
     
     def stop_drag(self, player_turn):
         """Call this when mouse button is released"""
@@ -88,7 +84,7 @@ class Card:
         if self.player == 0:
             if self.rect.x < vert_line_3 + 5:
                 self.rect.x = vert_line_3 + 5
-        elif player_turn == 1:    
+        elif player_turn == 1:
             if self.player == 1:
                 if self.rect.y > horz_midline - card_height and self.rect.x < vert_line_3:
                     self.rect.y = horz_midline - card_height - 5
