@@ -63,7 +63,11 @@ def main():
                     if current_state == OPTIONS:
                         if back_rect.collidepoint(mouse_pos):
                             current_state = MENU
-                    
+                        if color_cycle_rect.collidepoint(mouse_pos):
+                            for card in reversed_deck:
+                                card.change_color()
+
+                                
                     # Controls Buttons
                     if current_state == CONTROLS:
                         if back_rect.collidepoint(mouse_pos):

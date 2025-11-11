@@ -16,6 +16,9 @@ class Card:
     x_coord: int
     y_coord: int
     text: str
+    primary_color: tuple
+    color: tuple
+    border_color: tuple
 
     def __init__(self, rank, suit, x, y):
         self.suit = suit
@@ -38,7 +41,8 @@ class Card:
         self.offset_x = 0
         self.offset_y = 0
 
-        self.color = RED
+        self.primary_color = RED
+        self.color = self.primary_color
         self.border_color = BLACK
 
     def __repr__(self):
@@ -51,7 +55,6 @@ class Card:
             self.offset_x = mouse_pos[0] - self.rect.x
             self.offset_y = mouse_pos[1] - self.rect.y
         
-    
     def stop_drag(self, player_turn):
         """Call this when mouse button is released"""
         self.dragging = False
@@ -97,7 +100,6 @@ class Card:
 
         self.assign_lane()
         self.assign_player()
-        
 
     def assign_player(self):
         if self.rect.x > vert_line_3 and self.rect.y < 150:
@@ -136,10 +138,10 @@ class Card:
         if self.flipped == False:
             self.flipped = True
             self.color = WHITE
-            self.border_color = RED
+            self.border_color = self.primary_color
         elif self.flipped == True:
             self.flipped = False
-            self.color = RED
+            self.color = self.primary_color
             self.border_color = BLACK
 
     def damage(self):
@@ -175,3 +177,11 @@ class Card:
             else:
                 self.health = 2
                 self.text = self.rank
+    
+    def change_color(self):
+        if self.primary_color == RED:
+            self.primary_color = BLUE
+            self.color = BLUE
+        elif self.primary_color == BLUE:
+            self.primary_color = RED
+            self.color = RED

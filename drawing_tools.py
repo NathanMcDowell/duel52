@@ -57,8 +57,12 @@ def draw_card(surface, rect, text, font, base_color, hover_color, mouse_pos, bor
     
     pygame.draw.rect(surface, color, rect) 
     pygame.draw.rect(surface, border_color, rect, 2)  # Determines border thickness
-    
-    draw_text(text, font, RED, surface, rect.centerx, rect.centery) # Adds text to the function
+    if base_color == WHITE:
+        text_color = border_color
+    else:
+        text_color = base_color
+
+    draw_text(text, font, text_color, surface, rect.centerx, rect.centery) # Adds text to the function
 
     return hovered
 
