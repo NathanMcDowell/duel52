@@ -21,7 +21,9 @@ options_rect = pygame.Rect(button_centered_x, 300, button_width, button_height)
 quit_rect = pygame.Rect(button_centered_x, 400, button_width, button_height)
 
 # Options Rectangles
-color_cycle_rect = pygame.Rect(button_centered_x, 400, button_width, button_height)
+color_red_rect = pygame.Rect(25, 150, button_width - 50, button_height)
+color_blue_rect = pygame.Rect(275, 150, button_width - 50, button_height)
+color_green_rect = pygame.Rect(525, 150, button_width - 50, button_height)
 
 # Start Up Rectangles
 back_rect = pygame.Rect(40, SCREEN_HEIGHT - 100, button_width + 60, button_height)
@@ -95,7 +97,12 @@ def draw_options(surface, mouse_pos):
     """Makes the controls screen"""
     surface.fill(DARKGRAY)
     
-    draw_button(screen, color_cycle_rect, "Color", BUTTON_FONT, RED, GREEN, mouse_pos)
+    draw_text("Card Colors:", GAME_FONT, WHITE, screen, 400, 75)
+
+    draw_button(screen, color_red_rect, "Red", BUTTON_FONT, RED, GREEN, mouse_pos)
+    draw_button(screen, color_blue_rect, "Blue", BUTTON_FONT, RED, GREEN, mouse_pos)
+    draw_button(screen, color_green_rect, "Green", BUTTON_FONT, RED, GREEN, mouse_pos)
+
     draw_button(screen, back_rect, "Back to Menu", BUTTON_FONT, RED, GREEN, mouse_pos)
 
 def draw_game(surface, mouse_pos):
