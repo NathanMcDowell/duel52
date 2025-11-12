@@ -178,10 +178,6 @@ class Card:
                 self.health = 2
                 self.text = self.rank
     
-    def change_color(self):
-        if self.primary_color == RED:
-            self.primary_color = BLUE
-            self.color = BLUE
-        elif self.primary_color == BLUE:
-            self.primary_color = RED
-            self.color = RED
+    def change_color(self, color):
+        self.primary_color = color
+        self.color = self.primary_color

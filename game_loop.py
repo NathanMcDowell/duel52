@@ -65,7 +65,13 @@ def main():
                             current_state = MENU
                         if color_red_rect.collidepoint(mouse_pos):
                             for card in reversed_deck:
-                                card.change_color()
+                                card.change_color(RED)
+                        if color_blue_rect.collidepoint(mouse_pos):
+                            for card in reversed_deck:
+                                card.change_color(BLUE)
+                        if color_green_rect.collidepoint(mouse_pos):
+                            for card in reversed_deck:
+                                card.change_color(GREEN)
 
                                 
                     # Controls Buttons
