@@ -64,33 +64,33 @@ class Card:
         
         if self.rect.x < 0: # Shifts off the left wall
             self.rect.x = 5
-        elif self.rect.x > SCREEN_WIDTH - card_width: # Shifts off the right wall
-            self.rect.x = SCREEN_WIDTH - card_width - 5
-        elif self.rect.x <= vert_line_1 - card_width // 2 and self.rect.x > vert_line_1 - card_width: # Shifts to the left of the vert_line_1
-            self.rect.x = vert_line_1 - card_width - 5
-        elif self.rect.x > vert_line_1 - card_width // 2 and self.rect.x < vert_line_1: # Shifts to the right of the vert_line_1
+        elif self.rect.x > SCREEN_WIDTH - self.rect.width: # Shifts off the right wall
+            self.rect.x = SCREEN_WIDTH - self.rect.width - 5
+        elif self.rect.x <= vert_line_1 - self.rect.width // 2 and self.rect.x > vert_line_1 - self.rect.width: # Shifts to the left of the vert_line_1
+            self.rect.x = vert_line_1 - self.rect.width - 5
+        elif self.rect.x > vert_line_1 - self.rect.width // 2 and self.rect.x < vert_line_1: # Shifts to the right of the vert_line_1
             self.rect.x = vert_line_1 + 5
-        elif self.rect.x <= vert_line_2 - card_width // 2 and self.rect.x > vert_line_2 - card_width: # Shifts to the left of the vert_line_2
-            self.rect.x = vert_line_2 - card_width - 5
-        elif self.rect.x > vert_line_2 - card_width // 2 and self.rect.x < vert_line_2: # Shifts to the right of the vert_line_2
+        elif self.rect.x <= vert_line_2 - self.rect.width // 2 and self.rect.x > vert_line_2 - self.rect.width: # Shifts to the left of the vert_line_2
+            self.rect.x = vert_line_2 - self.rect.width - 5
+        elif self.rect.x > vert_line_2 - self.rect.width // 2 and self.rect.x < vert_line_2: # Shifts to the right of the vert_line_2
             self.rect.x = vert_line_2 + 5
-        elif self.rect.x <= vert_line_3 - card_width // 2 and self.rect.x > vert_line_3 - card_width: # Shifts to the left of the vert_line_3
-            self.rect.x = vert_line_3 - card_width - 5
-        elif self.rect.x > vert_line_3 - card_width // 2 and self.rect.x < vert_line_3: # Shifts to the right of the vert_line_3
+        elif self.rect.x <= vert_line_3 - self.rect.width // 2 and self.rect.x > vert_line_3 - self.rect.width: # Shifts to the left of the vert_line_3
+            self.rect.x = vert_line_3 - self.rect.width - 5
+        elif self.rect.x > vert_line_3 - self.rect.width // 2 and self.rect.x < vert_line_3: # Shifts to the right of the vert_line_3
             self.rect.x = vert_line_3 + 5
         
         if self.rect.y < 0: # Shifts off the top wall
                 self.rect.y = 5
-        if self.rect.y > SCREEN_HEIGHT - card_height: # Shifts off the bottom wall
-                self.rect.y = SCREEN_HEIGHT - card_height - 5
+        if self.rect.y > SCREEN_HEIGHT - self.rect.height: # Shifts off the bottom wall
+                self.rect.y = SCREEN_HEIGHT - self.rect.height - 5
         # Pushes the card off of the opponent's side
         if self.player == 0:
             if self.rect.x < vert_line_3 + 5:
                 self.rect.x = vert_line_3 + 5
         elif player_turn == 1:
             if self.player == 1:
-                if self.rect.y > horz_midline - card_height and self.rect.x < vert_line_3:
-                    self.rect.y = horz_midline - card_height - 5
+                if self.rect.y > horz_midline - self.rect.height and self.rect.x < vert_line_3:
+                    self.rect.y = horz_midline - self.rect.height - 5
 
         elif player_turn == 2:
             if self.player == 2:
