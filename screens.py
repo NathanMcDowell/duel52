@@ -32,8 +32,8 @@ begin_rect = pygame.Rect(500, SCREEN_HEIGHT - 100, button_width, button_height)
 # Game Rectangles
 turn_rect = pygame.Rect(SCREEN_WIDTH - 255, SCREEN_HEIGHT - 525, 110, button_height)
 concede_rect = pygame.Rect(SCREEN_WIDTH - 250, SCREEN_HEIGHT - 325, 100, button_height)
-p1_indicator_rect = pygame.Rect(SCREEN_WIDTH - 255, SCREEN_HEIGHT - 625, 30, 30)
-p2_indicator_rect = pygame.Rect(SCREEN_WIDTH - 255, SCREEN_HEIGHT - 425, 30, 30)
+p1_indicator_rect = pygame.Rect(SCREEN_WIDTH - 255, SCREEN_HEIGHT - 580, 30, 30)
+p2_indicator_rect = pygame.Rect(SCREEN_WIDTH - 255, SCREEN_HEIGHT - 445, 30, 30)
 
 # Cards
 deck = []
