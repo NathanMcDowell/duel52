@@ -33,6 +33,7 @@ begin_rect = pygame.Rect(500, SCREEN_HEIGHT - 100, button_width, button_height)
 turn_rect = pygame.Rect(SCREEN_WIDTH - 255, SCREEN_HEIGHT - 525, 110, button_height)
 concede_rect = pygame.Rect(SCREEN_WIDTH - 250, SCREEN_HEIGHT - 325, 100, button_height)
 
+
 # Cards
 deck = []
 RANK_LIST = ['2', '3', '4', '5', '6', '7', '8', '9', 'J', 'Q', 'K', 'A']
@@ -72,10 +73,10 @@ def draw_menu(surface, mouse_pos):
 
     draw_text("DUEL 52", TITLE_FONT, WHITE, screen, SCREEN_WIDTH // 2, 40)
 
-    draw_button(screen, start_rect, "Start", BUTTON_FONT, RED, GREEN, mouse_pos)
-    draw_button(screen, controls_rect, "Controls", BUTTON_FONT, RED, GREEN, mouse_pos)
-    draw_button(screen, options_rect, "Options", BUTTON_FONT, RED, GREEN, mouse_pos)
-    draw_button(screen, quit_rect, "Quit", BUTTON_FONT, RED, GREEN, mouse_pos)
+    draw_button(screen, start_rect, "Start", TEXT_FONT, RED, GREEN, mouse_pos)
+    draw_button(screen, controls_rect, "Controls", TEXT_FONT, RED, GREEN, mouse_pos)
+    draw_button(screen, options_rect, "Options", TEXT_FONT, RED, GREEN, mouse_pos)
+    draw_button(screen, quit_rect, "Quit", TEXT_FONT, RED, GREEN, mouse_pos)
 
 def draw_game_startup(surface, mouse_pos):
     """Makes the start up screen before the game begins.
@@ -84,34 +85,38 @@ def draw_game_startup(surface, mouse_pos):
     - Choose if one player will go first or if they want it randomly determined."""
     surface.fill(DARKGRAY)
     draw_text("Set Up", TITLE_FONT, WHITE, screen, SCREEN_WIDTH // 2, 40)
-    draw_button(screen, back_rect, "Back to Menu", BUTTON_FONT, RED, GREEN, mouse_pos)
-    draw_button(screen, begin_rect, "Begin", BUTTON_FONT, RED, GREEN, mouse_pos)
+    draw_button(screen, back_rect, "Back to Menu", TEXT_FONT, RED, GREEN, mouse_pos)
+    draw_button(screen, begin_rect, "Begin", TEXT_FONT, RED, GREEN, mouse_pos)
 
 def draw_controls(surface, mouse_pos):
     """Makes the controls screen"""
     surface.fill(DARKGRAY)
     draw_text("Controls", TITLE_FONT, WHITE, screen, SCREEN_WIDTH // 2, 40)
-    draw_button(screen, back_rect, "Back to Menu", BUTTON_FONT, RED, GREEN, mouse_pos)
+    draw_text("Left click and drag to move cards", TEXT_FONT, WHITE, screen, 50, 150, center= False)
+    draw_text("Right click to flip a card over", TEXT_FONT, WHITE, screen, 50, 250, center= False)
+    draw_text("Middle click to damage a card", TEXT_FONT, WHITE, screen, 50, 350, center= False)
+
+    draw_button(screen, back_rect, "Back to Menu", TEXT_FONT, RED, GREEN, mouse_pos)
 
 def draw_options(surface, mouse_pos):
     """Makes the controls screen"""
     surface.fill(DARKGRAY)
     
-    draw_text("Card Colors:", GAME_FONT, WHITE, screen, 400, 75)
+    draw_text("Card Colors:", TITLE_FONT, WHITE, screen, 400, 75)
 
-    draw_button(screen, color_red_rect, "Red", BUTTON_FONT, RED, GREEN, mouse_pos)
-    draw_button(screen, color_blue_rect, "Blue", BUTTON_FONT, RED, GREEN, mouse_pos)
-    draw_button(screen, color_green_rect, "Green", BUTTON_FONT, RED, GREEN, mouse_pos)
+    draw_button(screen, color_red_rect, "Red", TEXT_FONT, RED, LIGHTGRAY, mouse_pos)
+    draw_button(screen, color_blue_rect, "Blue", TEXT_FONT, BLUE, LIGHTGRAY, mouse_pos)
+    draw_button(screen, color_green_rect, "Green", TEXT_FONT, GREEN, LIGHTGRAY, mouse_pos)
 
-    draw_button(screen, back_rect, "Back to Menu", BUTTON_FONT, RED, GREEN, mouse_pos)
+    draw_button(screen, back_rect, "Back to Menu", TEXT_FONT, RED, GREEN, mouse_pos)
 
 def draw_game(surface, mouse_pos):
     '''The game'''
     surface.fill(DARKGRAY)
     
     # Buttons
-    draw_button(screen, turn_rect, "Turn", BUTTON_FONT, RED, GREEN, mouse_pos)
-    draw_button(screen, concede_rect, "Quit", BUTTON_FONT, RED, GREEN, mouse_pos)
+    draw_button(screen, turn_rect, "Turn", TEXT_FONT, RED, GREEN, mouse_pos)
+    draw_button(screen, concede_rect, "Quit", TEXT_FONT, RED, GREEN, mouse_pos)
 
 
     # Lane divisions
@@ -125,5 +130,5 @@ def draw_game(surface, mouse_pos):
 
     # Draw Pile
     for card in deck:
-        draw_card(screen, card.rect, card.text, BUTTON_FONT, card.color, card.color, mouse_pos, card.border_color)
+        draw_card(screen, card.rect, card.text, TEXT_FONT, card.color, card.color, mouse_pos, card.border_color)
   

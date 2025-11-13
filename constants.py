@@ -6,8 +6,7 @@ SCREEN_WIDTH, SCREEN_HEIGHT = 1400, 800
 
 # Fonts
 TITLE_FONT = pygame.font.SysFont("Arial", 70)
-BUTTON_FONT = pygame.font.SysFont("Arial", 50)
-GAME_FONT = pygame.font.SysFont("Arial", 70)
+TEXT_FONT = pygame.font.SysFont("Arial", 50)
 
 # Lines
 sidebar_width = 300
