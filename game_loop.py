@@ -41,7 +41,7 @@ def main():
             draw_controls(screen, mouse_pos)
 
         if current_state == GAME:
-            draw_game(screen, mouse_pos)
+            draw_game(screen, mouse_pos, player_turn)
 
         for event in pygame.event.get():
             if event.type == pygame.QUIT:

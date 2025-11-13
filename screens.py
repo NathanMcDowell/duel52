@@ -32,7 +32,8 @@ begin_rect = pygame.Rect(500, SCREEN_HEIGHT - 100, button_width, button_height)
 # Game Rectangles
 turn_rect = pygame.Rect(SCREEN_WIDTH - 255, SCREEN_HEIGHT - 525, 110, button_height)
 concede_rect = pygame.Rect(SCREEN_WIDTH - 250, SCREEN_HEIGHT - 325, 100, button_height)
-
+p1_indicator_rect = pygame.Rect(SCREEN_WIDTH - 255, SCREEN_HEIGHT - 625, 30, 30)
+p2_indicator_rect = pygame.Rect(SCREEN_WIDTH - 255, SCREEN_HEIGHT - 425, 30, 30)
 
 # Cards
 deck = []
@@ -110,7 +111,7 @@ def draw_options(surface, mouse_pos):
 
     draw_button(screen, back_rect, "Back to Menu", TEXT_FONT, RED, GREEN, mouse_pos)
 
-def draw_game(surface, mouse_pos):
+def draw_game(surface, mouse_pos, player_turn):
     '''The game'''
     surface.fill(DARKGRAY)
     
@@ -118,6 +119,11 @@ def draw_game(surface, mouse_pos):
     draw_button(screen, turn_rect, "Turn", TEXT_FONT, RED, GREEN, mouse_pos)
     draw_button(screen, concede_rect, "Quit", TEXT_FONT, RED, GREEN, mouse_pos)
 
+    # Current turn indicatior
+    if player_turn == 1:
+        draw_button(screen, p1_indicator_rect, "", TEXT_FONT, BLUE, BLUE, mouse_pos)
+    elif player_turn == 2:
+        draw_button(screen, p2_indicator_rect, "", TEXT_FONT, BLUE, BLUE, mouse_pos)
 
     # Lane divisions
     draw_line(surface, WHITE, (vert_line_1, 0), (vert_line_1, SCREEN_HEIGHT))
