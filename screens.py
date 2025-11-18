@@ -21,8 +21,8 @@ options_rect = pygame.Rect(button_centered_x, 300, button_width, button_height)
 quit_rect = pygame.Rect(button_centered_x, 400, button_width, button_height)
 
 # Controls Rectangles
-to_card_abilities_rect = pygame.Rect(SCREEN_WIDTH // 2 + 250, SCREEN_HEIGHT - 100, 50, button_height)
-to_controls_rect = pygame.Rect(SCREEN_WIDTH // 2 - 250, SCREEN_HEIGHT - 100, 50, button_height)
+to_card_abilities_rect = pygame.Rect(SCREEN_WIDTH // 2 + 150, SCREEN_HEIGHT - 100, 50, button_height)
+to_controls_rect = pygame.Rect(SCREEN_WIDTH // 2 - 150, SCREEN_HEIGHT - 100, 50, button_height)
 
 # Options Rectangles
 color_red_rect = pygame.Rect(25, 150, button_width - 50, button_height)
