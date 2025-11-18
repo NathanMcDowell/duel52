@@ -17,6 +17,7 @@ GAME_START = "game_start"
 GAME = "game"
 OPTIONS = "options"
 CONTROLS = "controls"
+CARD_ABILITIES = "card_abilities"
 current_state = MENU
 
 
@@ -30,17 +31,20 @@ def main():
         if current_state == MENU:
             draw_menu(screen, mouse_pos)
         
-        if current_state == GAME_START:
+        elif current_state == GAME_START:
             ''''''
             draw_game_startup(screen, mouse_pos)
 
-        if current_state == OPTIONS:
+        elif current_state == OPTIONS:
             draw_options(screen, mouse_pos)
 
-        if current_state == CONTROLS:
+        elif current_state == CONTROLS:
             draw_controls(screen, mouse_pos)
 
-        if current_state == GAME:
+        elif current_state == CARD_ABILITIES:
+            draw_card_abilities(screen, mouse_pos)
+
+        elif current_state == GAME:
             draw_game(screen, mouse_pos, player_turn)
 
         for event in pygame.event.get():
@@ -72,12 +76,19 @@ def main():
                         if color_green_rect.collidepoint(mouse_pos):
                             for card in reversed_deck:
                                 card.change_color(GREEN)
-
                                 
                     # Controls Buttons
                     if current_state == CONTROLS:
                         if back_rect.collidepoint(mouse_pos):
                             current_state = MENU
+                        if to_card_abilities_rect.collidepoint(mouse_pos):
+                            current_state = CARD_ABILITIES
+
+                    if current_state == CARD_ABILITIES:
+                        if back_rect.collidepoint(mouse_pos):
+                            current_state = MENU
+                        if to_controls_rect.collidepoint(mouse_pos):
+                            current_state = CONTROLS
                     
                     # Game Start Up Buttons
                     if current_state == GAME_START:
@@ -95,7 +106,7 @@ def main():
                                 player_turn = 2
                             elif player_turn == 2:
                                 player_turn = 1
-                            print(player_turn)
+                            print(f"Player {player_turn}'s turn")
                         for card in reversed_deck:
                             if card.rect.collidepoint(mouse_pos):
                                 card.start_drag(mouse_pos, player_turn)

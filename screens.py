@@ -13,12 +13,16 @@ screen = pygame.display.set_mode((SCREEN_WIDTH, SCREEN_HEIGHT))
 pygame.display.set_caption("Game Draft")
 
 
-# (x coordinate, y coordinate, width, height)
+# pygame.Rect(x coordinate, y coordinate, width, height)
 # Menu Rectangles
 start_rect = pygame.Rect(button_centered_x, 100, button_width, button_height)
 controls_rect = pygame.Rect(button_centered_x, 200, button_width, button_height)
 options_rect = pygame.Rect(button_centered_x, 300, button_width, button_height)
 quit_rect = pygame.Rect(button_centered_x, 400, button_width, button_height)
+
+# Controls Rectangles
+to_card_abilities_rect = pygame.Rect(SCREEN_WIDTH // 2 + 250, SCREEN_HEIGHT - 100, 50, button_height)
+to_controls_rect = pygame.Rect(SCREEN_WIDTH // 2 - 250, SCREEN_HEIGHT - 100, 50, button_height)
 
 # Options Rectangles
 color_red_rect = pygame.Rect(25, 150, button_width - 50, button_height)
@@ -96,6 +100,16 @@ def draw_controls(surface, mouse_pos):
     draw_text("Left click and drag to move cards", TEXT_FONT, WHITE, screen, 50, 150, center= False)
     draw_text("Right click to flip a card over", TEXT_FONT, WHITE, screen, 50, 250, center= False)
     draw_text("Middle click to damage a card", TEXT_FONT, WHITE, screen, 50, 350, center= False)
+
+    draw_button(screen, to_card_abilities_rect, ">", TEXT_FONT, RED, GREEN, mouse_pos)
+    draw_button(screen, back_rect, "Back to Menu", TEXT_FONT, RED, GREEN, mouse_pos)
+
+def draw_card_abilities(surface, mouse_pos):
+    surface.fill(DARKGRAY)
+    draw_text("Card Abilities", TITLE_FONT, WHITE, screen, SCREEN_WIDTH // 2, 40)
+
+    draw_button(screen, to_controls_rect, "<", TEXT_FONT, RED, GREEN, mouse_pos)
+    
 
     draw_button(screen, back_rect, "Back to Menu", TEXT_FONT, RED, GREEN, mouse_pos)
 
