@@ -20,27 +20,6 @@ def draw_text(text, font, color, surface, x, y, center = True):
     surface.blit(text_surf, text_button)
     return text_button
 
-def draw_button(surface, rect, text, font, base_color, hover_color, mouse_pos, border_color = WHITE):
-    """This makes buttons where I need them.
-    -surface is the surface on which everything is placed, the screen.
-    -rect is the predefined details for the button's shape and size.
-    -text is the text on the button, which will be put into a draw text function within this one.
-    -font is the font of above text, as determined by the above written font variables.
-    -base_color is the color that the rectangle will be unless it is hovered over. Use constant colors.
-    -hover_color is the color that the rectangle will be when hovered over. Use constant colors.
-    -mouse_pos in this case is used to determine if the mouse is over the button. It will take from a function that determines mouse position.
-    -border_color is the color of the border that the button has. It will be white unless otherwise specified."""
-    
-    hovered = rect.collidepoint(mouse_pos)  
-    color = hover_color if hovered else base_color
-    
-    pygame.draw.rect(surface, color, rect) 
-    pygame.draw.rect(surface, border_color, rect, 2)  # Determines border thickness
-    
-    draw_text(text, font, BLACK, surface, rect.centerx, rect.centery) # Adds text to the function
-
-    return hovered
-
 def draw_card(surface, rect, text, font, base_color, hover_color, mouse_pos, border_color):
     """This makes buttons where I need them.
     -surface is the surface on which everything is placed, the screen.

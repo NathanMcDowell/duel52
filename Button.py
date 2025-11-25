@@ -34,7 +34,7 @@ class Button:
 
         self.rect = pygame.Rect(self.x_coord, self.y_coord, self.width, self.height)
     
-    # def draw_button(surface, rect, text, font, base_color, hover_color, mouse_pos, border_color = WHITE):
+
     def draw_button(self, mouse_pos, surface=screen):
         hovered = self.rect.collidepoint(mouse_pos)  
         color = self.hover_color if hovered else self.color

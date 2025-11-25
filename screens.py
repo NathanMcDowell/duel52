@@ -109,8 +109,8 @@ def draw_card_abilities(surface, mouse_pos):
     draw_text("Card Abilities", TITLE_FONT, WHITE, screen, SCREEN_WIDTH // 2, 40)
     ca_button_x = 100
     ca_button_y = 200
-    for rank in RANK_LIST:
-        draw_button(screen, pygame.Rect(ca_button_x, ca_button_y, 50, button_height), rank, TEXT_FONT, RED, GREEN, mouse_pos)
+    # for rank in RANK_LIST:
+    #     draw_button(screen, pygame.Rect(ca_button_x, ca_button_y, 50, button_height), rank, TEXT_FONT, RED, GREEN, mouse_pos)
 
     """
     show buttons
