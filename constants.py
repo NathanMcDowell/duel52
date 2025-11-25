@@ -3,6 +3,7 @@
 import pygame
 
 SCREEN_WIDTH, SCREEN_HEIGHT = 1400, 800
+screen = pygame.display.set_mode((SCREEN_WIDTH, SCREEN_HEIGHT))
 
 # Fonts
 TITLE_FONT = pygame.font.SysFont("Arial", 70)

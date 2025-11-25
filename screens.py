@@ -5,6 +5,7 @@ import random
 
 from drawing_tools import *
 from Card import *
+from Button import *
 from constants import *
 
 # Initialization stuff
@@ -19,7 +20,7 @@ start_rect = pygame.Rect(button_centered_x, 100, button_width, button_height)
 controls_rect = pygame.Rect(button_centered_x, 200, button_width, button_height)
 options_rect = pygame.Rect(button_centered_x, 300, button_width, button_height)
 quit_rect = pygame.Rect(button_centered_x, 400, button_width, button_height)
-
+test_button = Button(100, 100, 200, 300)
 # Controls Rectangles
 to_card_abilities_rect = pygame.Rect(SCREEN_WIDTH // 2 + 150, SCREEN_HEIGHT - 100, 50, button_height)
 to_controls_rect = pygame.Rect(SCREEN_WIDTH // 2 - 150, SCREEN_HEIGHT - 100, 50, button_height)
@@ -54,7 +55,6 @@ reversed_deck = list(reversed(deck))
 # Lays out starting hands
 starting_hand_count = 0
 card_spread = SCREEN_WIDTH - sidebar_width + 25
-
 for card in reversed_deck:
     # Player One's hand
     if starting_hand_count == 5:
@@ -82,6 +82,7 @@ def draw_menu(surface, mouse_pos):
     draw_button(screen, controls_rect, "Controls", TEXT_FONT, RED, GREEN, mouse_pos)
     draw_button(screen, options_rect, "Options", TEXT_FONT, RED, GREEN, mouse_pos)
     draw_button(screen, quit_rect, "Quit", TEXT_FONT, RED, GREEN, mouse_pos)
+    test_button.draw_button(mouse_pos)
 
 def draw_game_startup(surface, mouse_pos):
     """Makes the start up screen before the game begins.
@@ -107,6 +108,19 @@ def draw_controls(surface, mouse_pos):
 def draw_card_abilities(surface, mouse_pos):
     surface.fill(DARKGRAY)
     draw_text("Card Abilities", TITLE_FONT, WHITE, screen, SCREEN_WIDTH // 2, 40)
+    ca_button_x = 100
+    ca_button_y = 200
+    for rank in RANK_LIST:
+        draw_button(screen, pygame.Rect(ca_button_x, ca_button_y, 50, button_height), rank, TEXT_FONT, RED, GREEN, mouse_pos)
+
+    """
+    show buttons
+    if button pushed
+        display information
+        and button for back
+    if back button pushed
+        display all buttons
+    """
 
     draw_button(screen, to_controls_rect, "<", TEXT_FONT, RED, GREEN, mouse_pos)
     

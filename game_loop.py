@@ -7,7 +7,7 @@ from screens import *
 from drawing_tools import *
 from constants import *
 
-screen = pygame.display.set_mode((SCREEN_WIDTH, SCREEN_HEIGHT))
+
 pygame.display.set_caption("Game Draft")
 
 clock = pygame.time.Clock()
