@@ -43,6 +43,3 @@ class Button:
         pygame.draw.rect(surface, self.border_color, self.rect, 2)  # Determines border thickness
     
         draw_text(self.text, self.font, BLACK, surface, self.rect.centerx, self.rect.centery) # Adds text to the function
-
-        return hovered
-
