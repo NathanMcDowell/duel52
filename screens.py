@@ -16,29 +16,29 @@ pygame.display.set_caption("Game Draft")
 
 # pygame.Rect(x coordinate, y coordinate, width, height)
 # Menu Rectangles
-start_rect = pygame.Rect(button_centered_x, 100, button_width, button_height)
-controls_rect = pygame.Rect(button_centered_x, 200, button_width, button_height)
-options_rect = pygame.Rect(button_centered_x, 300, button_width, button_height)
-quit_rect = pygame.Rect(button_centered_x, 400, button_width, button_height)
-test_button = Button(100, 100, 200, 300)
+start_button = Button(button_centered_x, 100, button_width, button_height, "Start")
+controls_button = Button(button_centered_x, 200, button_width, button_height, "Controls")
+options_button = Button(button_centered_x, 300, button_width, button_height, "Options")
+quit_button = Button(button_centered_x, 400, button_width, button_height, "Quit")
+test_button = Button(100, 100, 200, 300, "Test")
 # Controls Rectangles
-to_card_abilities_rect = pygame.Rect(SCREEN_WIDTH // 2 + 150, SCREEN_HEIGHT - 100, 50, button_height)
-to_controls_rect = pygame.Rect(SCREEN_WIDTH // 2 - 150, SCREEN_HEIGHT - 100, 50, button_height)
+to_card_abilities_button = Button(SCREEN_WIDTH // 2 + 150, SCREEN_HEIGHT - 100, 50, button_height, ">")
+to_controls_button = Button(SCREEN_WIDTH // 2 - 150, SCREEN_HEIGHT - 100, 50, button_height, "<")
 
 # Options Rectangles
-color_red_rect = pygame.Rect(25, 150, button_width - 50, button_height)
-color_blue_rect = pygame.Rect(275, 150, button_width - 50, button_height)
-color_green_rect = pygame.Rect(525, 150, button_width - 50, button_height)
+color_red_button = Button(25, 150, button_width - 50, button_height, "Red")
+color_blue_button = Button(275, 150, button_width - 50, button_height, "Blue")
+color_green_button = Button(525, 150, button_width - 50, button_height, "Green")
 
 # Start Up Rectangles
-back_rect = pygame.Rect(40, SCREEN_HEIGHT - 100, button_width + 60, button_height)
-begin_rect = pygame.Rect(500, SCREEN_HEIGHT - 100, button_width, button_height)
+back_button = Button(40, SCREEN_HEIGHT - 100, button_width + 60, button_height, "Back to Menu")
+begin_button = Button(500, SCREEN_HEIGHT - 100, button_width, button_height, "Start Game")
 
 # Game Rectangles
-turn_rect = pygame.Rect(SCREEN_WIDTH - 255, SCREEN_HEIGHT - 525, 110, button_height)
-concede_rect = pygame.Rect(SCREEN_WIDTH - 250, SCREEN_HEIGHT - 325, 100, button_height)
-p1_indicator_rect = pygame.Rect(SCREEN_WIDTH - 255, SCREEN_HEIGHT - 580, 30, 30)
-p2_indicator_rect = pygame.Rect(SCREEN_WIDTH - 255, SCREEN_HEIGHT - 445, 30, 30)
+turn_button = Button(SCREEN_WIDTH - 255, SCREEN_HEIGHT - 525, 110, button_height, "Turn")
+concede_button = Button(SCREEN_WIDTH - 250, SCREEN_HEIGHT - 325, 100, button_height, "Quit")
+p1_indicator_button = Button(SCREEN_WIDTH - 255, SCREEN_HEIGHT - 580, 30, 30, "")
+p2_indicator_button = Button(SCREEN_WIDTH - 255, SCREEN_HEIGHT - 445, 30, 30, "")
 
 # Cards
 deck = []
@@ -78,10 +78,10 @@ def draw_menu(surface, mouse_pos):
 
     draw_text("DUEL 52", TITLE_FONT, WHITE, screen, SCREEN_WIDTH // 2, 40)
 
-    draw_button(screen, start_rect, "Start", TEXT_FONT, RED, GREEN, mouse_pos)
-    draw_button(screen, controls_rect, "Controls", TEXT_FONT, RED, GREEN, mouse_pos)
-    draw_button(screen, options_rect, "Options", TEXT_FONT, RED, GREEN, mouse_pos)
-    draw_button(screen, quit_rect, "Quit", TEXT_FONT, RED, GREEN, mouse_pos)
+    start_button.draw_button(mouse_pos)
+    controls_button.draw_button(mouse_pos)
+    options_button.draw_button(mouse_pos)
+    quit_button.draw_button(mouse_pos)
     test_button.draw_button(mouse_pos)
 
 def draw_game_startup(surface, mouse_pos):
@@ -91,8 +91,8 @@ def draw_game_startup(surface, mouse_pos):
     - Choose if one player will go first or if they want it randomly determined."""
     surface.fill(DARKGRAY)
     draw_text("Set Up", TITLE_FONT, WHITE, screen, SCREEN_WIDTH // 2, 40)
-    draw_button(screen, back_rect, "Back to Menu", TEXT_FONT, RED, GREEN, mouse_pos)
-    draw_button(screen, begin_rect, "Begin", TEXT_FONT, RED, GREEN, mouse_pos)
+    back_button.draw_button(mouse_pos)
+    begin_button.draw_button(mouse_pos)
 
 def draw_controls(surface, mouse_pos):
     """Makes the controls screen"""
@@ -102,8 +102,8 @@ def draw_controls(surface, mouse_pos):
     draw_text("Right click to flip a card over", TEXT_FONT, WHITE, screen, 50, 250, center= False)
     draw_text("Middle click to damage a card", TEXT_FONT, WHITE, screen, 50, 350, center= False)
 
-    draw_button(screen, to_card_abilities_rect, ">", TEXT_FONT, RED, GREEN, mouse_pos)
-    draw_button(screen, back_rect, "Back to Menu", TEXT_FONT, RED, GREEN, mouse_pos)
+    to_card_abilities_button.draw_button(mouse_pos)
+    back_button.draw_button(mouse_pos)
 
 def draw_card_abilities(surface, mouse_pos):
     surface.fill(DARKGRAY)
@@ -122,10 +122,10 @@ def draw_card_abilities(surface, mouse_pos):
         display all buttons
     """
 
-    draw_button(screen, to_controls_rect, "<", TEXT_FONT, RED, GREEN, mouse_pos)
+    to_controls_button.draw_button(mouse_pos)
     
 
-    draw_button(screen, back_rect, "Back to Menu", TEXT_FONT, RED, GREEN, mouse_pos)
+    back_button.draw_button(mouse_pos)
 
 def draw_options(surface, mouse_pos):
     """Makes the controls screen"""
@@ -133,25 +133,25 @@ def draw_options(surface, mouse_pos):
     
     draw_text("Card Colors:", TITLE_FONT, WHITE, screen, 400, 75)
 
-    draw_button(screen, color_red_rect, "Red", TEXT_FONT, RED, LIGHTGRAY, mouse_pos)
-    draw_button(screen, color_blue_rect, "Blue", TEXT_FONT, BLUE, LIGHTGRAY, mouse_pos)
-    draw_button(screen, color_green_rect, "Green", TEXT_FONT, GREEN, LIGHTGRAY, mouse_pos)
+    color_red_button.draw_button(mouse_pos)
+    color_blue_button.draw_button(mouse_pos)
+    color_green_button.draw_button(mouse_pos)
 
-    draw_button(screen, back_rect, "Back to Menu", TEXT_FONT, RED, GREEN, mouse_pos)
+    back_button.draw_button(mouse_pos)
 
 def draw_game(surface, mouse_pos, player_turn):
     '''The game'''
     surface.fill(DARKGRAY)
     
     # Buttons
-    draw_button(screen, turn_rect, "Turn", TEXT_FONT, RED, GREEN, mouse_pos)
-    draw_button(screen, concede_rect, "Quit", TEXT_FONT, RED, GREEN, mouse_pos)
+    turn_button.draw_button(mouse_pos)
+    concede_button.draw_button(mouse_pos)
 
     # Current turn indicatior
     if player_turn == 1:
-        draw_button(screen, p1_indicator_rect, "", TEXT_FONT, BLUE, BLUE, mouse_pos)
+        p1_indicator_button.draw_button(mouse_pos)
     elif player_turn == 2:
-        draw_button(screen, p2_indicator_rect, "", TEXT_FONT, BLUE, BLUE, mouse_pos)
+        p2_indicator_button.draw_button(mouse_pos)
 
     # Lane divisions
     draw_line(surface, WHITE, (vert_line_1, 0), (vert_line_1, SCREEN_HEIGHT))

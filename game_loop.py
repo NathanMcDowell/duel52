@@ -54,54 +54,54 @@ def main():
                     
                     # Menu Buttons
                     if current_state == MENU:
-                        if quit_rect.collidepoint(mouse_pos):
+                        if quit_button.rect.collidepoint(mouse_pos):
                             running = False
-                        if start_rect.collidepoint(mouse_pos):
+                        if start_button.rect.collidepoint(mouse_pos):
                             current_state = GAME_START
-                        if controls_rect.collidepoint(mouse_pos):
+                        if controls_button.rect.collidepoint(mouse_pos):
                             current_state = CONTROLS
-                        if options_rect.collidepoint(mouse_pos):
+                        if options_button.rect.collidepoint(mouse_pos):
                             current_state = OPTIONS
                     
                     # Options Buttons
                     if current_state == OPTIONS:
-                        if back_rect.collidepoint(mouse_pos):
+                        if back_button.collidepoint(mouse_pos):
                             current_state = MENU
-                        if color_red_rect.collidepoint(mouse_pos):
+                        if color_red_button.collidepoint(mouse_pos):
                             for card in reversed_deck:
                                 card.change_color(RED)
-                        if color_blue_rect.collidepoint(mouse_pos):
+                        if color_blue_button.collidepoint(mouse_pos):
                             for card in reversed_deck:
                                 card.change_color(BLUE)
-                        if color_green_rect.collidepoint(mouse_pos):
+                        if color_green_button.collidepoint(mouse_pos):
                             for card in reversed_deck:
                                 card.change_color(GREEN)
                                 
                     # Controls Buttons
                     if current_state == CONTROLS:
-                        if back_rect.collidepoint(mouse_pos):
+                        if back_button.rect.collidepoint(mouse_pos):
                             current_state = MENU
-                        if to_card_abilities_rect.collidepoint(mouse_pos):
+                        if to_card_abilities_button.collidepoint(mouse_pos):
                             current_state = CARD_ABILITIES
 
                     if current_state == CARD_ABILITIES:
-                        if back_rect.collidepoint(mouse_pos):
+                        if back_button.rect.collidepoint(mouse_pos):
                             current_state = MENU
-                        if to_controls_rect.collidepoint(mouse_pos):
+                        if to_controls_button.rect.collidepoint(mouse_pos):
                             current_state = CONTROLS
                     
                     # Game Start Up Buttons
                     if current_state == GAME_START:
-                        if back_rect.collidepoint(mouse_pos):
+                        if back_button.rect.collidepoint(mouse_pos):
                             current_state = MENU
-                        if begin_rect.collidepoint(mouse_pos):
+                        if begin_button.rect.collidepoint(mouse_pos):
                             current_state = GAME
                     
                     # Game Buttons and Card Dragging
                     if current_state == GAME:
-                        if concede_rect.collidepoint(mouse_pos):
+                        if concede_button.rect.collidepoint(mouse_pos):
                             current_state = MENU
-                        if turn_rect.collidepoint(mouse_pos):
+                        if turn_button.rect.collidepoint(mouse_pos):
                             if player_turn == 1:
                                 player_turn = 2
                             elif player_turn == 2:

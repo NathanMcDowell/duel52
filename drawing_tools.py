@@ -14,11 +14,11 @@ def draw_text(text, font, color, surface, x, y, center = True):
     -center = True means that the text will be centered on the x and y instead of that being the upper-left coordinate."""
     text_surf = font.render(text, True, color)
     if center:
-        text_rect = text_surf.get_rect(center=(x, y))
+        text_button = text_surf.get_rect(center=(x, y))
     else:
-        text_rect = text_surf.get_rect(topleft=(x, y))
-    surface.blit(text_surf, text_rect)
-    return text_rect
+        text_button = text_surf.get_rect(topleft=(x, y))
+    surface.blit(text_surf, text_button)
+    return text_button
 
 def draw_button(surface, rect, text, font, base_color, hover_color, mouse_pos, border_color = WHITE):
     """This makes buttons where I need them.
