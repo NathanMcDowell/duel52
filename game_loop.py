@@ -65,15 +65,15 @@ def main():
                     
                     # Options Buttons
                     if current_state == OPTIONS:
-                        if back_button.collidepoint(mouse_pos):
+                        if back_button.rect.collidepoint(mouse_pos):
                             current_state = MENU
-                        if color_red_button.collidepoint(mouse_pos):
+                        if color_red_button.rect.collidepoint(mouse_pos):
                             for card in reversed_deck:
                                 card.change_color(RED)
-                        if color_blue_button.collidepoint(mouse_pos):
+                        if color_blue_button.rect.collidepoint(mouse_pos):
                             for card in reversed_deck:
                                 card.change_color(BLUE)
-                        if color_green_button.collidepoint(mouse_pos):
+                        if color_green_button.rect.collidepoint(mouse_pos):
                             for card in reversed_deck:
                                 card.change_color(GREEN)
                                 
@@ -81,7 +81,7 @@ def main():
                     if current_state == CONTROLS:
                         if back_button.rect.collidepoint(mouse_pos):
                             current_state = MENU
-                        if to_card_abilities_button.collidepoint(mouse_pos):
+                        if to_card_abilities_button.rect.collidepoint(mouse_pos):
                             current_state = CARD_ABILITIES
 
                     if current_state == CARD_ABILITIES:
