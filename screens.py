@@ -104,13 +104,20 @@ def draw_controls(surface, mouse_pos):
     to_card_abilities_button.draw_button(mouse_pos)
     back_button.draw_button(mouse_pos)
 
+ca_button_x = 100
+ca_button_y = 200
+control_buttons = []
+for rank in RANK_LIST:
+    rank = Button(ca_button_x, ca_button_y, 100, 100, rank)
+    control_buttons.append(rank)
+    ca_button_x += 20
+
 def draw_card_abilities(surface, mouse_pos):
     surface.fill(DARKGRAY)
     draw_text("Card Abilities", TITLE_FONT, WHITE, screen, SCREEN_WIDTH // 2, 40)
-    ca_button_x = 100
-    ca_button_y = 200
-    # for rank in RANK_LIST:
-    #     draw_button(screen, pygame.Rect(ca_button_x, ca_button_y, 50, button_height), rank, TEXT_FONT, RED, GREEN, mouse_pos)
+    
+    for button in control_buttons:
+        button.draw_button(mouse_pos)
 
     """
     show buttons

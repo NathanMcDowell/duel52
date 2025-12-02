@@ -111,6 +111,7 @@ def main():
                             if card.rect.collidepoint(mouse_pos):
                                 card.start_drag(mouse_pos, player_turn)
                                 break
+                        
             
             # Card stops moving when click is lifted
             if event.type == pygame.MOUSEBUTTONUP and event.button == 1: # If the left mouse button is lifted
