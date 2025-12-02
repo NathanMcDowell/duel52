@@ -19,7 +19,7 @@ start_button = Button(button_centered_x, 100, button_width, button_height, "Star
 controls_button = Button(button_centered_x, 200, button_width, button_height, "Controls")
 options_button = Button(button_centered_x, 300, button_width, button_height, "Options")
 quit_button = Button(button_centered_x, 400, button_width, button_height, "Quit")
-test_button = Button(100, 100, 200, 300, "Test")
+
 # Controls Rectangles
 to_card_abilities_button = Button(SCREEN_WIDTH // 2 + 150, SCREEN_HEIGHT - 100, 50, button_height, ">")
 to_controls_button = Button(SCREEN_WIDTH // 2 - 150, SCREEN_HEIGHT - 100, 50, button_height, "<")
@@ -81,7 +81,7 @@ def draw_menu(surface, mouse_pos):
     controls_button.draw_button(mouse_pos)
     options_button.draw_button(mouse_pos)
     quit_button.draw_button(mouse_pos)
-    test_button.draw_button(mouse_pos)
+    
 
 def draw_game_startup(surface, mouse_pos):
     """Makes the start up screen before the game begins.
