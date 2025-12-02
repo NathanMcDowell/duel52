@@ -89,6 +89,9 @@ def main():
                             current_state = MENU
                         if to_controls_button.rect.collidepoint(mouse_pos):
                             current_state = CONTROLS
+                        for button in ability_buttons:
+                            if button.rect.collidepoint(mouse_pos):
+                                button.display_card_information()
                     
                     # Game Start Up Buttons
                     if current_state == GAME_START:

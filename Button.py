@@ -63,4 +63,4 @@ class Button:
     def display_card_information(self):
         for rank in card_abilities:
             if self.text == rank:
-                ''''''
+                print(card_abilities[rank])
