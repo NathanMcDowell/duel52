@@ -115,14 +115,17 @@ for rank in RANK_LIST:
     ability_buttons.append(rank)
     ca_button_x += 125
 
-def draw_card_abilities(surface, mouse_pos, current_card="J"):
+def draw_card_abilities(surface, mouse_pos, current_card=""):
     surface.fill(DARKGRAY)
     draw_text("Card Abilities", TITLE_FONT, WHITE, screen, SCREEN_WIDTH // 2, 40)
     
     for button in ability_buttons:
         button.draw_button(mouse_pos)
-    
-    draw_text(card_abilities[current_card], TEXT_FONT, WHITE, screen, 600, 200, False)
+    ca_text_y = 200
+    for line in card_abilities[current_card]:
+        draw_text(line, TEXT_FONT, WHITE, screen, 600, ca_text_y, False)
+        ca_text_y += 75
+    # draw_text(card_abilities[current_card], TEXT_FONT, WHITE, screen, 600, ca_text_y, False)
 
     to_controls_button.draw_button(mouse_pos)
     back_button.draw_button(mouse_pos)
