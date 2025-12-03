@@ -104,13 +104,14 @@ def draw_controls(surface, mouse_pos):
     to_card_abilities_button.draw_button(mouse_pos)
     back_button.draw_button(mouse_pos)
 
-ca_button_x = 100
+#This makes the buttons on the card abilities screen
+ca_button_x = 75
 ca_button_y = 200
 ability_buttons = []
 for rank in RANK_LIST:
     if rank == "6" or rank == "J":
+        ca_button_x = 75
         ca_button_y += 125
-        ca_button_x = 100
     rank = Button(ca_button_x, ca_button_y, 100, 100, rank)
     ability_buttons.append(rank)
     ca_button_x += 125
@@ -121,9 +122,9 @@ def draw_card_abilities(surface, mouse_pos, current_card=""):
     
     for button in ability_buttons:
         button.draw_button(mouse_pos)
-    ca_text_y = 200
+    ca_text_y = 150
     for line in card_abilities[current_card]:
-        draw_text(line, TEXT_FONT, WHITE, screen, 600, ca_text_y, False)
+        draw_text(line, TEXT_FONT, WHITE, screen, 575, ca_text_y, False)
         ca_text_y += 75
     # draw_text(card_abilities[current_card], TEXT_FONT, WHITE, screen, 600, ca_text_y, False)
 
