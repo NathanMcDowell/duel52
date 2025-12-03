@@ -1,4 +1,4 @@
-"""This file makes all the game assets, including rectangles, the card class, and the screens"""
+
 
 import pygame
 import random
@@ -115,25 +115,16 @@ for rank in RANK_LIST:
     ability_buttons.append(rank)
     ca_button_x += 125
 
-def draw_card_abilities(surface, mouse_pos):
+def draw_card_abilities(surface, mouse_pos, current_card="J"):
     surface.fill(DARKGRAY)
     draw_text("Card Abilities", TITLE_FONT, WHITE, screen, SCREEN_WIDTH // 2, 40)
     
     for button in ability_buttons:
         button.draw_button(mouse_pos)
-
-    """
-    show buttons
-    if button pushed
-        display information
-        and button for back
-    if back button pushed
-        display all buttons
-    """
+    
+    draw_text(card_abilities[current_card], TEXT_FONT, WHITE, screen, 600, 200, False)
 
     to_controls_button.draw_button(mouse_pos)
-    
-
     back_button.draw_button(mouse_pos)
 
 def draw_options(surface, mouse_pos):

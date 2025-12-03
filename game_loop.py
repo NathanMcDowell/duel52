@@ -13,7 +13,6 @@ pygame.display.set_caption("Game Draft")
 clock = pygame.time.Clock()
 
 MENU = "menu"
-GAME_START = "game_start"
 GAME = "game"
 OPTIONS = "options"
 CONTROLS = "controls"
@@ -25,15 +24,12 @@ def main():
     """The main game loop."""
     global current_state
     global player_turn
+    current_card = "1"
     running = True
     while running:
         mouse_pos = pygame.mouse.get_pos()
         if current_state == MENU:
             draw_menu(screen, mouse_pos)
-        
-        elif current_state == GAME_START:
-            ''''''
-            draw_game_startup(screen, mouse_pos)
 
         elif current_state == OPTIONS:
             draw_options(screen, mouse_pos)
@@ -42,7 +38,7 @@ def main():
             draw_controls(screen, mouse_pos)
 
         elif current_state == CARD_ABILITIES:
-            draw_card_abilities(screen, mouse_pos)
+            draw_card_abilities(screen, mouse_pos, current_card)
 
         elif current_state == GAME:
             draw_game(screen, mouse_pos, player_turn)
@@ -57,7 +53,7 @@ def main():
                         if quit_button.rect.collidepoint(mouse_pos):
                             running = False
                         if start_button.rect.collidepoint(mouse_pos):
-                            current_state = GAME_START
+                            current_state = GAME
                         if controls_button.rect.collidepoint(mouse_pos):
                             current_state = CONTROLS
                         if options_button.rect.collidepoint(mouse_pos):
@@ -91,14 +87,7 @@ def main():
                             current_state = CONTROLS
                         for button in ability_buttons:
                             if button.rect.collidepoint(mouse_pos):
-                                button.display_card_information()
-                    
-                    # Game Start Up Buttons
-                    if current_state == GAME_START:
-                        if back_button.rect.collidepoint(mouse_pos):
-                            current_state = MENU
-                        if begin_button.rect.collidepoint(mouse_pos):
-                            current_state = GAME
+                                current_card = button.text
                     
                     # Game Buttons and Card Dragging
                     if current_state == GAME:
