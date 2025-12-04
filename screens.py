@@ -98,8 +98,8 @@ def draw_controls(surface, mouse_pos):
     surface.fill(DARKGRAY)
     draw_text("Controls", TITLE_FONT, WHITE, screen, SCREEN_WIDTH // 2, 40)
     draw_text("Left click and drag to move cards", TEXT_FONT, WHITE, screen, 50, 150, center= False)
-    draw_text("Right click to flip a card over", TEXT_FONT, WHITE, screen, 50, 250, center= False)
-    draw_text("Middle click to damage a card", TEXT_FONT, WHITE, screen, 50, 350, center= False)
+    draw_text("'F' to flip a card over", TEXT_FONT, WHITE, screen, 50, 250, center= False)
+    draw_text("'D' click to damage a card", TEXT_FONT, WHITE, screen, 50, 350, center= False)
 
     to_card_abilities_button.draw_button(mouse_pos)
     back_button.draw_button(mouse_pos)

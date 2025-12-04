@@ -112,12 +112,12 @@ def main():
                         card.stop_drag(player_turn)
             
             # Damage for cards
-            if event.type == pygame.MOUSEBUTTONDOWN and event.button == 2: # If the scroll button mouse button is clicked
+            if event.type == pygame.KEYDOWN and event.key == pygame.K_d: # If "k" is clicked
                 for card in reversed_deck:
                     if card.rect.collidepoint(mouse_pos):
                         card.damage()
             # Flips cards
-            if event.type == pygame.MOUSEBUTTONDOWN and event.button == 3: # If the right mouse button is clicked
+            if event.type == pygame.KEYDOWN and event.key == pygame.K_f: # If "d" is clicked
                 for card in reversed_deck:
                     if card.rect.collidepoint(mouse_pos):
                         card.flip()
